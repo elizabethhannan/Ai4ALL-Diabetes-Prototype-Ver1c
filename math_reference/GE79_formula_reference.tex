@@ -1,0 +1,303 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+
+\title{GE-79 Machine Learning Formula Reference}
+\author{AI4ALL Diabetes ML Project}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Purpose}
+
+This document is a human reference for the main classification, model, regression,
+and explainable AI formulas discussed in the GE-79 project. The GE-79 project is a
+classification project, so regression metrics are included for reference only.
+
+\section*{1. Accuracy}
+
+Accuracy measures the percentage of all predictions that were correct.
+
+\[
+\text{Accuracy} =
+\frac{TP + TN}{TP + TN + FP + FN}
+\]
+
+\noindent Range: \(0\) to \(1\). Higher is better.
+
+\section*{2. Precision}
+
+Precision answers: of everything predicted positive, how many were actually positive?
+
+\[
+\text{Precision} =
+\frac{TP}{TP + FP}
+\]
+
+\noindent Higher precision means fewer false positives.
+
+\section*{3. Recall, or Sensitivity}
+
+Recall answers: of all actual positives, how many were detected?
+
+\[
+\text{Recall} =
+\frac{TP}{TP + FN}
+\]
+
+\noindent Higher recall means fewer false negatives.
+
+\section*{4. F1 Score}
+
+The F1 score balances precision and recall using their harmonic mean.
+
+\[
+F_1 =
+2 \cdot \frac{\text{Precision} \cdot \text{Recall}}
+{\text{Precision} + \text{Recall}}
+\]
+
+\noindent Equivalent form using confusion matrix values:
+
+\[
+F_1 =
+\frac{2TP}{2TP + FP + FN}
+\]
+
+\section*{5. Confusion Matrix}
+
+The confusion matrix is not a formula. It is a table that counts correct and
+incorrect predictions.
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+ & Predicted Positive & Predicted Negative \\
+\midrule
+Actual Positive & True Positive (TP) & False Negative (FN) \\
+Actual Negative & False Positive (FP) & True Negative (TN) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Every binary classification metric above is computed from these four
+values.
+
+\section*{6. Cross-Validation}
+
+For \(k\)-fold cross-validation, the overall score is the average score across
+the \(k\) folds:
+
+\[
+CV =
+\frac{1}{k}\sum_{i=1}^{k} S_i
+\]
+
+\noindent For 5-fold cross-validation:
+
+\[
+CV =
+\frac{S_1 + S_2 + S_3 + S_4 + S_5}{5}
+\]
+
+\noindent where \(S_i\) is the metric score, such as accuracy or F1, from fold \(i\).
+
+\section*{7. Random Forest Feature Importance}
+
+Scikit-learn's default Random Forest feature importance is impurity-based. For a
+feature \(j\), the unnormalized importance is the total weighted impurity decrease
+from all nodes that split on feature \(j\):
+
+\[
+FI_j =
+\sum_{t \in T_j}
+\frac{N_t}{N}
+\left(
+I_t
+- \frac{N_{t_L}}{N_t} I_{t_L}
+- \frac{N_{t_R}}{N_t} I_{t_R}
+\right)
+\]
+
+\noindent where:
+
+\begin{itemize}
+    \item \(T_j\) is the set of tree nodes that split on feature \(j\).
+    \item \(N\) is the total number of samples.
+    \item \(N_t\) is the number of samples at node \(t\).
+    \item \(t_L\) and \(t_R\) are the left and right child nodes.
+    \item \(I_t\), \(I_{t_L}\), and \(I_{t_R}\) are impurity values.
+\end{itemize}
+
+\noindent The normalized feature importances satisfy:
+
+\[
+\sum_{j=1}^{p} FI_j = 1
+\]
+
+\noindent where \(p\) is the number of features.
+
+\section*{8. Logistic Regression}
+
+Logistic regression predicts the probability of class \(1\) using the sigmoid
+function:
+
+\[
+P(y = 1 \mid x) =
+\frac{1}{1 + e^{-z}}
+\]
+
+\noindent where:
+
+\[
+z =
+\beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_n x_n
+\]
+
+\noindent This is the core equation behind Model 1.
+
+\section*{9. Decision Tree Information Gain}
+
+Decision trees choose splits that improve node purity. With entropy, information
+gain is:
+
+\[
+IG =
+H(\text{parent})
+- \sum_{i=1}^{m}
+\frac{N_i}{N}
+H(\text{child}_i)
+\]
+
+\noindent where:
+
+\begin{itemize}
+    \item \(H\) is entropy.
+    \item \(m\) is the number of child nodes after the split.
+    \item \(N_i\) is the number of samples in child node \(i\).
+    \item \(N\) is the number of samples in the parent node.
+\end{itemize}
+
+\noindent Entropy is:
+
+\[
+H =
+-\sum_{i=1}^{k} p_i \log_2(p_i)
+\]
+
+\noindent where \(k\) is the number of classes and \(p_i\) is the proportion of
+samples in class \(i\).
+
+\section*{10. Random Forest Prediction}
+
+For classification, a Random Forest prediction is based on majority vote across
+the trees:
+
+\[
+\hat{y} =
+\operatorname{mode}(T_1(x), T_2(x), \ldots, T_n(x))
+\]
+
+\noindent where \(T_i(x)\) is the prediction from tree \(i\) for input \(x\).
+
+\section*{11. Mean Squared Error}
+
+Mean Squared Error is a regression metric and is included for reference only.
+
+\[
+MSE =
+\frac{1}{n}
+\sum_{i=1}^{n}
+(y_i - \hat{y}_i)^2
+\]
+
+\section*{12. Root Mean Squared Error}
+
+\[
+RMSE =
+\sqrt{MSE}
+=
+\sqrt{
+\frac{1}{n}
+\sum_{i=1}^{n}
+(y_i - \hat{y}_i)^2
+}
+\]
+
+\section*{13. Mean Absolute Error}
+
+\[
+MAE =
+\frac{1}{n}
+\sum_{i=1}^{n}
+\left|y_i - \hat{y}_i\right|
+\]
+
+\section*{14. Coefficient of Determination, \(R^2\)}
+
+\[
+R^2 =
+1 - \frac{SS_{res}}{SS_{tot}}
+\]
+
+\noindent where:
+
+\[
+SS_{res} =
+\sum_{i=1}^{n}
+(y_i - \hat{y}_i)^2
+\]
+
+\[
+SS_{tot} =
+\sum_{i=1}^{n}
+(y_i - \bar{y})^2
+\]
+
+\section*{15. Explainable AI: SHAP}
+
+SHAP expresses a model prediction as a baseline plus feature-level contributions:
+
+\[
+f(x) =
+\phi_0 +
+\sum_{i=1}^{M}
+\phi_i
+\]
+
+\noindent where:
+
+\begin{itemize}
+    \item \(\phi_0\) is the baseline prediction.
+    \item \(\phi_i\) is the SHAP contribution from feature \(i\).
+    \item \(M\) is the number of features.
+\end{itemize}
+
+\noindent Each SHAP value explains how much a feature pushes the prediction above
+or below the baseline.
+
+\section*{16. Gini Impurity}
+
+Gini impurity is a common splitting criterion for decision trees and random
+forests:
+
+\[
+G =
+1 - \sum_{i=1}^{k} p_i^2
+\]
+
+\noindent where:
+
+\begin{itemize}
+    \item \(k\) is the number of classes.
+    \item \(p_i\) is the probability, or node proportion, of class \(i\).
+\end{itemize}
+
+\noindent Lower Gini impurity indicates a purer node.
+
+\end{document}
