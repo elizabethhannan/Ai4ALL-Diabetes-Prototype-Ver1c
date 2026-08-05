@@ -2,7 +2,7 @@
 
 Use the same GitHub repository and branch for all four model apps:
 
-- Repository: `elizabethhannan/AI4ALL-Diabetes-PRIVATE-ML`
+- Repository: `elizabethhannan/Ai4ALL-Diabetes-Prototype-Ver1c`
 - Branch: `main`
 - Python runtime: `python-3.12` from `runtime.txt`
 
