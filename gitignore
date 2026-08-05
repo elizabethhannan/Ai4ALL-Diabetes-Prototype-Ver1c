@@ -1,0 +1,97 @@
+# ─────────────────────────────────────────────────────────────
+# GE-79 Cognitive-Status ML — Group 6C · AI4ALL Ignite 2026
+# .gitignore
+# ─────────────────────────────────────────────────────────────
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ===== Virtual environments =====
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.python-version
+
+# ===== Jupyter / IPython =====
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+profile_default/
+ipython_config.py
+
+# ===== PyCharm / JetBrains (team uses PyCharm) =====
+.idea/
+*.iml
+*.iws
+out/
+
+# ===== VS Code =====
+.vscode/
+
+# ===== Streamlit =====
+.streamlit/secrets.toml
+
+# ===== OS clutter =====
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ===== Environment / secrets =====
+.env
+.env.*
+*.key
+
+# ===== Auto-generated model outputs =====
+# Generated when the pipeline runs; keep the folder (.gitkeep) but
+# ignore the generated artifacts so they don't bloat the repo.
+# Comment any line out if you DO want that artifact committed for the poster/slides.
+outputs/*.csv
+outputs/*.json
+outputs/*.pkl
+outputs/*.joblib
+outputs/*.log
+!outputs/.gitkeep
+!outputs/visualizations/
+
+# Trained model binaries (regenerate by re-running)
+*.pkl
+*.joblib
+*.h5
+*.pt
+
+# ===== Logs & temp =====
+*.log
+*.tmp
+*.bak
+~$*
+
+# ===== Large / private data (do NOT commit patient-level CSVs by default) =====
+# The final cleaned GE-79 master CSV is shared via the agreed channel, not git,
+# unless the team decides to commit it. Uncomment the next line to ignore it.
+# data/*.csv
