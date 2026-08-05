@@ -1,0 +1,2 @@
+model,accuracy,precision_macro,recall_macro,f1_macro,recall_impaired
+Decision Tree,0.627,0.583,0.602,0.58,0.55

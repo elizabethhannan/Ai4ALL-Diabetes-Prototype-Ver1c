@@ -1,0 +1,5 @@
+[!] Model 2 status: placeholder/student guide.
+Model 3 can still run because it only depends on Model 0's locked features.
+Model 2 is needed later only for the final three-model comparison table
+and the Decision Tree visuals: model2_results_model2_tree.csv,
+model2_fig_dt_tree.png, and model2_fig_dt_confusion.png.

@@ -1,0 +1,15 @@
+Model 1 and Model 3 Comparison - Description
+
+Plain-English takeaways:
+- Random Forest has the highest overall accuracy, but it misses more impaired patients.
+- Logistic Regression catches more impaired patients, even though its overall accuracy is lower.
+- The best model depends on the goal: fewer false alarms or better detection of impairment.
+
+Technical interpretation:
+- The chart compares the majority baseline, Logistic Regression, and Random Forest on accuracy, macro-F1, and impaired recall.
+- Majority baseline accuracy is 0.733, but impaired recall is 0.00 because it never predicts the impaired class.
+- Logistic Regression accuracy is 0.547, macro-F1 is 0.508, and impaired recall is 0.50.
+- Random Forest accuracy is 0.747, macro-F1 is 0.594, and impaired recall is 0.25.
+- Random Forest performs best on accuracy and macro-F1 in the current run.
+- Logistic Regression performs best on impaired recall, detecting 10 of 20 impaired patients compared with 5 of 20 for Random Forest.
+- This is why the project reports minority recall alongside accuracy on the imbalanced GE-79 cohort.

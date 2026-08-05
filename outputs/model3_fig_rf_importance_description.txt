@@ -1,0 +1,14 @@
+Model 3 Random Forest Feature Importance - Description
+
+Plain-English takeaways:
+- The Random Forest leaned most on blood sugar measures, especially fasting glucose and glucose.
+- Blood pressure and brain blood-flow response were also important for its predictions.
+- The chart explains what the model used most, not whether those features directly cause impairment.
+
+Technical interpretation:
+- The figure shows the top 12 feature importances from the final Random Forest fit on the locked feature set.
+- The highest-ranked variables were fasting_glucose_mg_dl (0.106), glucose_mg_dl (0.104), daytime_sbp (0.096), and global_vasoreactivity (0.096).
+- These results suggest the forest relied most on glycemic control, systolic blood pressure, cerebrovascular reactivity, white-matter markers, vascular inflammation, lipids, perfusion, and body mass.
+- Feature importance here is impurity-based, so correlated predictors can share or distort importance.
+- The values are useful for model interpretation but should not be read as causal effect sizes.
+- Because the dataset is small and imbalanced, the importance ranking should be discussed alongside cross-validation metrics, especially impaired recall.

@@ -1,0 +1,14 @@
+GE-79 Target Distribution - Description
+
+Plain-English takeaways:
+- Most patients in this dataset had no cognitive impairment: 55 out of 75.
+- Fewer patients were impaired: 20 out of 75.
+- Because the groups are uneven, accuracy alone can make a model look better than it really is.
+
+Technical interpretation:
+- The donut chart shows the binary target distribution used by the models.
+- Class 0, No Impairment, contains 55 patients, or 73.3% of the cohort.
+- Class 1, Impaired, contains 20 patients, or 26.7% of the cohort.
+- This imbalance explains why the majority-class baseline reaches 0.733 accuracy by always predicting No Impairment.
+- Macro-F1 and impaired-class recall are emphasized because they reveal whether the model detects the minority impaired group.
+- The class distribution is not a model result; it explains the evaluation context for Models 1 and 3.

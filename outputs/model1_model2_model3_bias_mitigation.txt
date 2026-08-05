@@ -1,0 +1,193 @@
+Bias Mitigation Notes for Models 1, 2, and 3
+GE-79 Cognitive-Status Classification Project
+
+Purpose
+- This file explains how we tried to reduce or avoid the specific bias risks identified for the GE-79 dataset and our Models 1, 2, and 3.
+- These steps reduce bias where possible, but they do not remove all bias from the dataset.
+- The models should be treated as educational research models, not clinical diagnostic tools.
+
+
+1. Geographic Bias
+
+Targeted bias:
+- GE-79 is a single-center study run in Boston.
+- A model trained on this dataset may learn patterns specific to that hospital system, region, or recruitment pool.
+- The results may not generalize to other regions, healthcare systems, or countries.
+
+Steps we took:
+- We clearly label the dataset as GE-79 and do not claim that the model generalizes outside this cohort.
+- Models 1 and 3 are evaluated only within the GE-79 dataset using stratified cross-validation.
+- We report results as within-dataset performance, not as external validation.
+- Model 2 is a placeholder and is documented as not yet contributing final performance claims.
+
+Remaining limitation:
+- We cannot fully remove geographic bias without testing on external data from other hospitals, regions, or countries.
+
+
+2. Age Bias
+
+Targeted bias:
+- The dataset focuses on older adults.
+- The model may not apply to younger adults with Type 2 Diabetes.
+
+Steps we took:
+- We describe the project scope as older adults with Type 2 Diabetes.
+- We avoid claiming that the model applies to younger Type 2 diabetic populations.
+- The README and output descriptions frame results around the GE-79 cohort rather than all diabetes patients.
+
+Remaining limitation:
+- The model should not be generalized to younger patients unless it is retrained or externally validated on younger cohorts.
+
+
+3. Selection Bias
+
+Targeted bias:
+- Participants were recruited into a research study.
+- Research participants may be healthier, more motivated, or more medically engaged than the general patient population.
+
+Steps we took:
+- We report the cohort size and target distribution so readers can see the sample context.
+- We avoid presenting the model as a general screening tool for all elderly diabetic patients.
+- We use the same locked feature set across Models 1 and 3 so performance differences come from model behavior, not from changing who or what is included.
+- Model 2 is kept as a placeholder until it can follow the same contract.
+
+Remaining limitation:
+- Selection bias cannot be fully corrected from inside the model because the dataset itself may not represent the broader patient population.
+
+
+4. Survivorship Bias
+
+Targeted bias:
+- In GE-79 follow-up, fewer diabetes subjects have matching later-visit records than controls.
+- If sicker diabetes patients dropped out or died before follow-up, complete follow-up data may overrepresent healthier survivors.
+
+Steps we took:
+- We used one visit per patient for modeling rather than conditioning the model on complete long-term follow-up.
+- This avoids training Models 1 and 3 only on patients who survived or stayed enrolled through later visits.
+- The scripts explicitly note one row per patient to reduce repeated-measures leakage and avoid overrepresenting patients with more complete records.
+
+Remaining limitation:
+- Survivorship bias may still exist in the available baseline/research cohort.
+- The model cannot recover information about patients who were never enrolled or who were missing before the modeled visit.
+
+
+5. Label Bias
+
+Targeted bias:
+- The target label comes from cognitive testing.
+- Cognitive assessments can misclassify Normal vs Mild Impairment.
+- The model learns from imperfect labels.
+
+Steps we took:
+- We use a clear binary target encoding: 0 = No Impairment and 1 = Impaired.
+- We exclude MMSE and cognitive-status code fields from the model features to prevent target leakage.
+- We report confusion matrices, macro-F1, and impaired recall instead of hiding errors behind one accuracy number.
+- We describe the outputs as classification results, not as medical diagnoses.
+
+Remaining limitation:
+- If the original cognitive label is wrong, the model can still learn from that error.
+- Reducing label bias further would require clinical review, repeated assessments, or alternative cognitive measures.
+
+
+6. Education Bias
+
+Targeted bias:
+- Education strongly affects cognitive test scores.
+- A model might predict education level rather than true cognitive impairment.
+
+Steps we took:
+- Education is not part of the locked final feature list used by Models 1 and 3.
+- The selected predictors are biomarker and physiology-related variables, such as glucose, fasting glucose, blood pressure, vasoreactivity, perfusion, white-matter markers, and related clinical measures.
+- We avoid interpreting model predictions as proof of true cognitive status independent of social or educational context.
+
+Remaining limitation:
+- Education can still affect the cognitive label used as the target.
+- Even if education is not used as a feature, label bias from education-adjusted or non-adjusted cognitive testing may remain.
+
+
+7. Racial Representation Bias
+
+Targeted bias:
+- GE-79 is overwhelmingly White, with very small counts for Black/African American, Latino, Asian, and Other/Unknown groups.
+- Sparse subgroup counts prevent reliable race-level inference.
+
+Steps we took:
+- Race is not included in the locked final feature list used by Models 1 and 3.
+- We do not make subgroup performance claims by race because the subgroup counts are too small.
+- We avoid claiming fairness across racial groups based on this dataset.
+- The model outputs emphasize cohort-level limitations and the need for external validation.
+
+Remaining limitation:
+- Removing race as a predictor does not remove racial representation bias from the dataset.
+- Biomarkers, healthcare access, diagnosis timing, and recruitment patterns may still reflect structural inequities.
+- Fairness cannot be established without a larger and more racially representative dataset.
+
+
+8. Class-Imbalance Bias
+
+Targeted bias:
+- The dataset has more No Impairment patients than Impaired patients.
+- A model can appear accurate by mostly predicting the majority class.
+
+Steps we took:
+- Models 1 and 3 use class_weight="balanced" to reduce majority-class dominance.
+- We use 5-fold stratified cross-validation so each fold preserves the class ratio as much as possible.
+- We report macro-F1 and impaired recall, not only accuracy.
+- The visualizations explicitly compare each model against the majority-class baseline.
+- Model 1 catches more impaired patients, while Model 3 has higher accuracy but lower impaired recall; both tradeoffs are shown.
+
+Remaining limitation:
+- The dataset still has only 20 impaired patients, so minority-class estimates are unstable.
+- More impaired cases would be needed for stronger conclusions.
+
+
+Model-Specific Notes
+
+Model 1: Logistic Regression
+- Bias-reduction role: baseline, transparent, and easier to interpret.
+- Uses balanced class weighting.
+- Catches 10 of 20 impaired patients in the current run.
+- Has more false positives, but that tradeoff is visible in the confusion matrix.
+- Useful for showing why accuracy alone is not enough.
+
+Model 2: Decision Tree Placeholder
+- Model 2 is intentionally documented as a placeholder/student guide right now.
+- It does not currently produce final claims.
+- When completed, it should follow the same bias controls:
+  - same locked features from Model 0,
+  - same target encoding,
+  - same leakage controls,
+  - same 5-fold stratified cross-validation,
+  - same class_weight="balanced" setting,
+  - same reporting of macro-F1 and impaired recall.
+- Keeping it as a placeholder avoids presenting unfinished results as validated model performance.
+
+Model 3: Random Forest
+- Bias-reduction role: ensemble comparison model with feature-importance output.
+- Uses balanced class weighting.
+- Reports feature importance so users can inspect which variables influenced the model.
+- Shows high accuracy but lower impaired recall, making the majority-class tradeoff visible.
+- Does not replace the need for subgroup testing or external validation.
+
+
+Bottom Line
+- We reduced preventable modeling bias by controlling leakage, using one row per patient, locking the same feature set across models, using stratified cross-validation, applying balanced class weights, reporting minority-class recall, and documenting the limits of the dataset.
+- We did not eliminate dataset-level bias from geography, age, selection, survivorship, education effects, label quality, or racial representation.
+- The correct interpretation is: these models compare approaches inside GE-79, but they require external validation before use beyond this cohort.
+
+VerifyWise Fairness Assessment
+
+What was tested:
+- VerifyWise was used to screen the cleaned GE-79 dataset across race, study group, diabetes status, hypertension status, and insulin use using cognitive_status_label as the target.
+- VerifyWise reported low bias for the tested attributes, with statistical parity difference 0.000, disparate impact ratio 1.000, and demographic parity ratio 1.000.
+
+How to interpret this:
+- This means VerifyWise did not detect measurable parity differences under the selected fairness metrics.
+- This does not prove that the dataset is unbiased.
+- This does not prove that Logistic Regression, Decision Tree, or Random Forest predictions are fair.
+- The VerifyWise run evaluated a ground-truth clinical label rather than model-generated predictions or deployment decisions.
+
+Remaining limitations:
+- Geographic bias, selection bias, survivorship bias, small sample size, limited racial representation, label uncertainty, and lack of external validation remain present.
+- Model fairness should be assessed separately using subgroup analysis of model predictions if subgroup counts are sufficient.
+- VerifyWise is one component of the broader Responsible AI review, alongside dataset auditing, bias review, SHAP interpretability, PROBAST-AI review, TRIPOD-AI reporting, and governance practices informed by the NIST AI Risk Management Framework and OECD AI Principles.

@@ -1,0 +1,15 @@
+GE-79 Feature Selection - Description
+
+Plain-English takeaways:
+- The strongest signals for cognitive status were blood sugar, blood pressure, brain blood-flow response, and white-matter brain changes.
+- Model 0 used these patterns to choose a smaller locked feature list, so later models compare the same patient information.
+- The chart does not diagnose anyone; it shows which measurements the feature-selection model found most useful for prediction.
+
+Technical interpretation:
+- The figure ranks the top 14 candidate biomarkers by mean Random Forest feature importance across 20 random seeds.
+- Higher bars indicate variables that more often reduced classification impurity inside the feature-selection forest.
+- Glucose-related variables ranked highest: glucose_mg_dl and fasting_glucose_mg_dl had the largest mean importances.
+- Cerebrovascular and blood-pressure variables were also prominent: global_vasoreactivity and daytime_sbp ranked near the top.
+- Error bars show stability across random seeds. Smaller error bars mean the ranking was more consistent across repeated forests.
+- The final locked feature file combines these top-ranked predictors with science-based anchor variables, preserving clinically relevant domains even if a small dataset ranks them noisily.
+- Because the cohort has 75 patients, importance values should be treated as model-guided evidence, not as proof of biological causation.

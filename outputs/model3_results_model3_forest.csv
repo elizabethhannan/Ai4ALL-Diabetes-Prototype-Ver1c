@@ -1,0 +1,3 @@
+model,accuracy,precision_macro,recall_macro,f1_macro,recall_impaired
+Baseline (majority),0.733,0.367,0.5,0.423,0.0
+Random Forest,0.747,0.664,0.589,0.594,0.25

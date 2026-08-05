@@ -1,0 +1,13 @@
+feature,importance
+fasting_glucose_mg_dl,0.10588021944878064
+glucose_mg_dl,0.10355111631820198
+daytime_sbp,0.0962705771257173
+global_vasoreactivity,0.09589609020227326
+wmh_registered,0.07859619261443493
+svcam_ng_ml,0.07568413627939496
+wmh_registered_masked,0.06832606490865802
+ldl_calc_mg_dl,0.0670376781431666
+perfusion_whole_brain_baseline_whole,0.06683177308234457
+nighttime_sbp,0.06253139804546788
+mass_kg,0.061143662485457245
+perfusion_lepto_pca_baseline_whole,0.06056283697175886

@@ -1,0 +1,16 @@
+Model 3 Random Forest Confusion Matrix - Description
+
+Plain-English takeaways:
+- Random Forest was very good at recognizing patients with no impairment: 51 out of 55 were correctly labeled.
+- It missed many impaired patients: only 5 out of 20 impaired patients were correctly flagged.
+- This model is cautious about calling someone impaired, so it has fewer false alarms but misses more at-risk patients.
+
+Technical interpretation:
+- True negatives: 51 patients were actually No Impairment and predicted No Impairment.
+- False positives: 4 patients were actually No Impairment but predicted Impaired.
+- False negatives: 15 patients were actually Impaired but predicted No Impairment.
+- True positives: 5 patients were actually Impaired and predicted Impaired.
+- Impaired recall is 5 / 20 = 0.25, matching the saved metrics row.
+- Overall accuracy is (51 + 5) / 75 = 0.747.
+- The high accuracy is partly driven by the class imbalance: 55 of 75 patients are No Impairment, so predicting that class correctly has a large effect on accuracy.
+- Compared with Logistic Regression, Random Forest has better aggregate accuracy and fewer false positives, but substantially worse impaired-class detection.

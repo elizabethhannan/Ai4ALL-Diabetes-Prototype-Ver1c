@@ -1,0 +1,16 @@
+Model 1 Logistic Regression Confusion Matrix - Description
+
+Plain-English takeaways:
+- Logistic Regression caught half of the impaired patients: 10 out of 20 were correctly flagged as impaired.
+- It also incorrectly flagged many unimpaired patients: 24 no-impairment patients were predicted as impaired.
+- This model is more willing to raise an alert, which helps catch risk but creates more false alarms.
+
+Technical interpretation:
+- True negatives: 31 patients were actually No Impairment and predicted No Impairment.
+- False positives: 24 patients were actually No Impairment but predicted Impaired.
+- False negatives: 10 patients were actually Impaired but predicted No Impairment.
+- True positives: 10 patients were actually Impaired and predicted Impaired.
+- Impaired recall is 10 / 20 = 0.50, matching the saved metrics row.
+- Overall accuracy is (31 + 10) / 75 = 0.547.
+- Compared with the majority-class baseline accuracy of 0.733, Logistic Regression gives up raw accuracy because it tries to identify the minority impaired class instead of mostly predicting No Impairment.
+- The clinical tradeoff is sensitivity versus false alarms: this model finds more impaired patients than Random Forest, but at the cost of lower precision and more false positives.
