@@ -1,0 +1,10 @@
+# GE-79 Streamlit dashboards - AI4ALL Ignite 2026
+# Streamlit Cloud reads this file from the repository root.
+# Keep this deploy file minimal so the apps start quickly and reliably.
+
+# Dashboard runtime
+streamlit>=1.30,<2.0
+streamlit-echarts>=0.4,<0.5
+
+# Core data handling
+pandas>=2.2,<3.0
