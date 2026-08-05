@@ -32,7 +32,7 @@ Clinical status: this is a research and education project only. It is not valida
 - Model 2 Decision Tree: https://ai4all-diabetes-app-ml-model-2-decision-tree.streamlit.app/
 - Model 3 Random Forest: https://ai4all-diabetes-app-ml-model-3-random-forest.streamlit.app/
 - Bias & Responsible AI Reports: https://i4all-diabetes-ml-bias-report.streamlit.app/
-- GitHub repository: https://github.com/elizabethhannan/AI4ALL-Diabetes-PRIVATE-ML
+- GitHub repository: https://github.com/elizabethhannan/Ai4ALL-Diabetes-Prototype-Ver1c
 
 ## Research Question
 
