@@ -1,0 +1,16 @@
+feature,mean_abs_shap,mean_shap,average_direction
+daytime sbp,0.04670755711542249,-0.01626252379168662,pushes toward No Impairment prediction
+fasting glucose mg dl,0.044100095916979005,-0.01790373500202879,pushes toward No Impairment prediction
+glucose mg dl,0.03882862285512413,-0.017324686795287047,pushes toward No Impairment prediction
+global vasoreactivity,0.029753699635015424,-0.015467408783109498,pushes toward No Impairment prediction
+wmh registered,0.02752419806591041,-0.013930665285168446,pushes toward No Impairment prediction
+wmh registered masked,0.02616084046373506,-0.010596728909991771,pushes toward No Impairment prediction
+nighttime sbp,0.02612086055275414,-0.00994641813085333,pushes toward No Impairment prediction
+ldl calc mg dl,0.02361564766499083,-0.012238787814429277,pushes toward No Impairment prediction
+perfusion whole brain baseline whole,0.02270783456735333,-0.009944545221580519,pushes toward No Impairment prediction
+svcam ng ml,0.022683777228285365,-0.0119829679204959,pushes toward No Impairment prediction
+mass kg,0.02266248447247883,-0.010961893261650379,pushes toward No Impairment prediction
+perfusion lepto pca baseline whole,0.018593227426761543,-0.009950114398063353,pushes toward No Impairment prediction
+hba1c percent,0.008212942581100165,-0.005726848691568295,pushes toward No Impairment prediction
+diabetes duration,0.004260464556142948,-0.0029507212559344294,pushes toward No Impairment prediction
+diabetes duration missing,0.0030107745236848987,-0.0006714436646842605,pushes toward No Impairment prediction
