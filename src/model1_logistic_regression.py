@@ -5,7 +5,7 @@
  Label stamped on all figures:  GE-79 · Logistic Regression · Baseline
 ============================================================================
  WHERE THIS FILE GOES (PyCharm):
-     AI4ALL-Diabetes-PRIVATE-ML-Ver1.B/
+     Ai4ALL-Diabetes-Prototype-Ver1c/
      └── src/
          └── model1_logistic_regression.py      <-- THIS FILE
 
