@@ -5,7 +5,7 @@
  Label stamped on all figures:  GE-79 · Random Forest · Ensemble
 ============================================================================
  WHERE THIS FILE GOES (PyCharm):
-     AI4ALL-Diabetes-PRIVATE-ML-Ver1.B/
+     Ai4ALL-Diabetes-Prototype-Ver1c/
      └── src/
          └── model3_random_forest.py      <-- THIS FILE
 
