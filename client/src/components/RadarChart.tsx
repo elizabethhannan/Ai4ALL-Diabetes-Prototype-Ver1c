@@ -27,7 +27,7 @@ export function RadarChart({ features, stats, importance, values }: Props) {
     const H = W   // square — chart fills the card
     const cx = W / 2
     const cy = H / 2
-    const R = Math.min(cx, cy) - 55  // extra margin so axis labels never clip
+    const R = Math.min(cx, cy) - 90  // smaller chart → more room for wrapped labels
 
     svg.attr('width', W).attr('height', H)
 
@@ -117,21 +117,22 @@ export function RadarChart({ features, stats, importance, values }: Props) {
 
     // Labels
     radarFeatures.forEach((f, i) => {
-      const pt = toXY(R + 24, i)
+      const pt = toXY(R + 20, i)
       const shortLabel = f.label.replace(/\(.*?\)/g, '').trim()
-      const words = shortLabel.length > 14 ? shortLabel.split(' ') : [shortLabel]
+      const words = shortLabel.split(' ')   // always wrap every word
+      const anchor = pt.x < cx - 5 ? 'end' : pt.x > cx + 5 ? 'start' : 'middle'
       const txt = svg.append('text')
         .attr('x', pt.x)
         .attr('y', pt.y)
-        .attr('text-anchor', pt.x < cx - 5 ? 'end' : pt.x > cx + 5 ? 'start' : 'middle')
+        .attr('text-anchor', anchor)
         .attr('dominant-baseline', 'central')
-        .attr('font-size', 13)
+        .attr('font-size', 11)
         .attr('fill', '#ffffff')
 
       words.forEach((w, wi) => {
         txt.append('tspan')
           .attr('x', pt.x)
-          .attr('dy', wi === 0 ? (words.length > 1 ? '-0.5em' : '0') : '1.1em')
+          .attr('dy', wi === 0 ? (words.length > 1 ? `-${(words.length - 1) * 0.55}em` : '0') : '1.1em')
           .text(w)
       })
     })
