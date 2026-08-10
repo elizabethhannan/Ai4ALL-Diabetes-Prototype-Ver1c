@@ -94,19 +94,7 @@ export default function App() {
           <div className="header-right">
             <div className="header-author">
               <div className="author-qr">
-                <svg viewBox="0 0 32 32" width="27" height="27">
-                  <rect width="32" height="32" fill="#111" rx="3"/>
-                  <rect x="2" y="2" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
-                  <rect x="5" y="5" width="6" height="6" fill="#34d399"/>
-                  <rect x="18" y="2" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
-                  <rect x="21" y="5" width="6" height="6" fill="#34d399"/>
-                  <rect x="2" y="18" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
-                  <rect x="5" y="21" width="6" height="6" fill="#34d399"/>
-                  <rect x="18" y="18" width="4" height="4" fill="#34d399"/>
-                  <rect x="24" y="18" width="4" height="4" fill="#34d399"/>
-                  <rect x="18" y="24" width="4" height="4" fill="#34d399"/>
-                  <rect x="24" y="24" width="4" height="4" fill="#34d399"/>
-                </svg>
+                <img src="/elizabeth-qr.png" alt="Elizabeth Hannan LinkedIn QR" width="36" height="36" style={{ display: 'block', borderRadius: 3 }} />
               </div>
               <div className="author-info">
                 <span className="author-name">Elizabeth H.</span>
@@ -115,19 +103,7 @@ export default function App() {
             </div>
             <div className="header-author">
               <div className="author-qr">
-                <svg viewBox="0 0 32 32" width="27" height="27">
-                  <rect width="32" height="32" fill="#111" rx="3"/>
-                  <rect x="2" y="2" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
-                  <rect x="5" y="5" width="6" height="6" fill="#34d399"/>
-                  <rect x="18" y="2" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
-                  <rect x="21" y="5" width="6" height="6" fill="#34d399"/>
-                  <rect x="2" y="18" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
-                  <rect x="5" y="21" width="6" height="6" fill="#34d399"/>
-                  <rect x="22" y="18" width="4" height="4" fill="#34d399"/>
-                  <rect x="18" y="24" width="4" height="4" fill="#34d399"/>
-                  <rect x="26" y="22" width="4" height="4" fill="#34d399"/>
-                  <rect x="20" y="26" width="4" height="4" fill="#34d399"/>
-                </svg>
+                <img src="/agastyya-qr.png" alt="Agastyya Kola LinkedIn QR" width="36" height="36" style={{ display: 'block', borderRadius: 3 }} />
               </div>
               <div className="author-info">
                 <span className="author-name">Agastyya K.</span>
@@ -259,7 +235,7 @@ export default function App() {
             { name: 'Agastyya Kola',          role: 'Author · Group 6C',      www: 'tinyurl.com/Linkedin-Agastyya-Kala',     qrImg: '/agastyya-qr.png' },
             { name: 'ML Visualizations App',  role: 'Streamlit App',          www: 'tinyurl.com/AI4ALL-Streamlit-App',       qrImg: '/streamlit-qr.png' },
             { name: 'Group 6C Presentation',  role: 'Slide Deck',             www: 'tinyurl.com/AI4ALL-Group6C-Presentation', qrImg: '/presentation-qr.png' },
-            { name: 'Elizabeth Hannan',        role: 'Co-Author · Group 6C',   www: 'tinyurl.com/LinkedinEHannan',            qrImg: '/elizabeth-qr.png' },
+            { name: 'Prototype App',           role: 'GE-79 MCI Explorer',     www: 'tinyurl.com/AI4ALL-Prototype',           qrImg: '/prototype-qr.png' },
             { name: 'Agastyya Kola',          role: 'Co-Author · Group 6C',   www: 'tinyurl.com/Linkedin-Agastyya-Kala',     qrImg: '/agastyya-qr.png' },
           ] as { name: string; role: string; www: string; qrImg: string | null }[]).map((person, i) => (
             <div key={i} className="footer2-card">
