@@ -74,6 +74,7 @@ export default function App() {
             <div className="header-brand-text">
               <span className="header-brand-name">AI4ALL</span>
               <span className="header-brand-sub">Summer Cohort 2026</span>
+              <p className="header-research-q">Can supervised machine learning classify Mild Cognitive Impairment in older adults with Type 2 Diabetes?</p>
             </div>
           </div>
 
@@ -81,15 +82,12 @@ export default function App() {
           <div className="header-center">
             <div className="header-title-row">
               <h1 className="header-title">GE-79 MCI Explorer</h1>
-              <span className="header-version-badge">ProtoApp Version 8</span>
+              <span className="header-version-badge">Group 6C</span>
               <div className="header-badge">
                 <span className="badge-dot" />
                 Research Only · Not Diagnostic
               </div>
             </div>
-            <p className="header-subtitle">
-              Can supervised machine learning classify Mild Cognitive Impairment in older adults with Type 2 Diabetes?
-            </p>
           </div>
 
           {/* Right — authors */}
