@@ -23,11 +23,11 @@ export function RadarChart({ features, stats, importance, values }: Props) {
     const svg = d3.select(ref.current)
     svg.selectAll('*').remove()
 
-    const W = ref.current.clientWidth || 280
+    const W = ref.current.clientWidth || 400
     const H = W   // square — chart fills the card
     const cx = W / 2
     const cy = H / 2
-    const R = Math.min(cx, cy) - 32
+    const R = Math.min(cx, cy) - 55  // extra margin so axis labels never clip
 
     svg.attr('width', W).attr('height', H)
 
@@ -153,7 +153,7 @@ export function RadarChart({ features, stats, importance, values }: Props) {
           </span>
         </div>
       </div>
-      <svg ref={ref} style={{ width: '100%' }} />
+      <svg ref={ref} style={{ width: '100%', overflow: 'visible' }} />
     </div>
   )
 }

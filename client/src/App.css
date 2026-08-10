@@ -227,7 +227,7 @@
 
 .predict-layout {
   display: grid;
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: 1fr 520px;
   gap: 24px;
   align-items: start;
 }
