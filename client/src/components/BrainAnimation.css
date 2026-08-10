@@ -28,10 +28,8 @@
 }
 
 .brain-anim-canvas {
+  display: block;
   width: 100%;
-  line-height: 0;
-}
-
-.brain-anim-canvas svg {
-  width: 100% !important;
+  height: 240px;
+  cursor: crosshair;
 }
