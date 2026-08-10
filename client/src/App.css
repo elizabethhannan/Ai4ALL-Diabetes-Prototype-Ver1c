@@ -458,18 +458,18 @@
 }
 
 .footer2-name {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--text);
 }
 
 .footer2-role {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-dim);
 }
 
 .footer2-www {
-  font-size: 11px;
+  font-size: 13px;
   color: #34d399;
   text-decoration: none;
   word-break: break-all;
