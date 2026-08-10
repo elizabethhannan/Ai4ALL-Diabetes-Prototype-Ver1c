@@ -255,7 +255,7 @@ export default function App() {
         {/* Second footer row — team / contributor QR cards */}
         <div className="footer-row2">
           {([
-            { name: 'Elizabeth Hannan',       role: 'Author · Group 6C',      www: 'linkedin.com/in/elizabethhannan',        qrImg: null },
+            { name: 'Elizabeth Hannan',       role: 'Author · Group 6C',      www: 'tinyurl.com/LinkedinEHannan',            qrImg: '/elizabeth-qr.png' },
             { name: 'Agastyya Kola',          role: 'Author · Group 6C',      www: 'tinyurl.com/Linkedin-Agastyya-Kala',     qrImg: '/agastyya-qr.png' },
             { name: 'ML Visualizations App',  role: 'Streamlit App',          www: 'tinyurl.com/AI4ALL-Streamlit-App',       qrImg: '/streamlit-qr.png' },
             { name: 'Team Member',            role: 'Contributor',            www: 'www.example.com',                        qrImg: null },
