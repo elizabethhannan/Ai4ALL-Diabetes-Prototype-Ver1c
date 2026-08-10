@@ -69,18 +69,7 @@ export default function App() {
         <div className="header-inner">
           {/* Left — AI4ALL branding */}
           <div className="header-left">
-            <svg className="header-brain-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="40" height="40" rx="8" fill="rgba(52,211,153,0.12)" stroke="#34d399" strokeWidth="1.2"/>
-              <circle cx="20" cy="16" r="7" stroke="#34d399" strokeWidth="1.4" fill="none"/>
-              <path d="M13 16 Q10 12 13 9" stroke="#34d399" strokeWidth="1.2" fill="none"/>
-              <path d="M27 16 Q30 12 27 9" stroke="#34d399" strokeWidth="1.2" fill="none"/>
-              <path d="M16 23 L16 30 M20 24 L20 30 M24 23 L24 30" stroke="#34d399" strokeWidth="1.2" strokeLinecap="round"/>
-              <circle cx="16" cy="30" r="1.5" fill="#34d399"/>
-              <circle cx="20" cy="30" r="1.5" fill="#34d399"/>
-              <circle cx="24" cy="30" r="1.5" fill="#34d399"/>
-              <circle cx="13" cy="9" r="1.5" fill="#34d399"/>
-              <circle cx="27" cy="9" r="1.5" fill="#34d399"/>
-            </svg>
+            <img src="/ai4all-logo.png" className="header-brain-icon" alt="AI4ALL logo" />
             <div className="header-brand-text">
               <span className="header-brand-name">AI4ALL</span>
               <span className="header-brand-sub">Summer Cohort 2026</span>
