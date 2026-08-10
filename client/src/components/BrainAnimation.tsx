@@ -21,7 +21,7 @@ const CFG = {
   alphaTarget: 0.3,
   velocityDecay: 0.1,
   collideIterations: 3,
-  chargeStrength: 800,   // positive here; attractor gets negated below
+  chargeStrength: 280,   // positive here; attractor gets negated below
 }
 
 interface Node extends d3.SimulationNodeDatum {

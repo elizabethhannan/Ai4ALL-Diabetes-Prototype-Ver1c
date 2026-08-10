@@ -94,7 +94,7 @@ export default function App() {
           <div className="header-right">
             <div className="header-author">
               <div className="author-qr">
-                <svg viewBox="0 0 32 32" width="40" height="40">
+                <svg viewBox="0 0 32 32" width="27" height="27">
                   <rect width="32" height="32" fill="#111" rx="3"/>
                   <rect x="2" y="2" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
                   <rect x="5" y="5" width="6" height="6" fill="#34d399"/>
@@ -115,7 +115,7 @@ export default function App() {
             </div>
             <div className="header-author">
               <div className="author-qr">
-                <svg viewBox="0 0 32 32" width="40" height="40">
+                <svg viewBox="0 0 32 32" width="27" height="27">
                   <rect width="32" height="32" fill="#111" rx="3"/>
                   <rect x="2" y="2" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
                   <rect x="5" y="5" width="6" height="6" fill="#34d399"/>
