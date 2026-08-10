@@ -2,7 +2,7 @@
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 10px 8px 6px;
 }
 
 .radar-header {

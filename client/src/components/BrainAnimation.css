@@ -31,17 +31,13 @@
   display: block;
   position: relative;
   width: 100%;
-  max-height: 250px;
-  overflow: hidden;
   cursor: crosshair;
 }
 
 .brain-anim-canvas-container canvas {
   display: block;
-  height: 250px !important;
-  width: auto !important;
-  max-width: 100%;
-  margin: 0 auto;
+  width: 100% !important;
+  height: auto !important;
 }
 
 /* Brain head overlay — sits in front of the D3 dots */

@@ -227,7 +227,7 @@
 
 .predict-layout {
   display: grid;
-  grid-template-columns: 480px 1fr;
+  grid-template-columns: 1fr 300px;
   gap: 24px;
   align-items: start;
 }
@@ -250,7 +250,6 @@
 }
 
 .btn-reset {
-  flex: 1;
   padding: 12px;
   background: #f97316;
   border: none;
@@ -264,6 +263,14 @@
 .btn-reset:hover {
   background: #ea6c08;
   transform: translateY(-1px);
+}
+
+/* Reset button positioned above the Biomarker Profile card */
+.btn-reset--above {
+  width: 100%;
+  text-align: center;
+  padding: 9px 12px;
+  font-size: 13px;
 }
 
 .btn-predict {

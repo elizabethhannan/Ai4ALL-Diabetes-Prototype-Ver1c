@@ -23,11 +23,11 @@ export function RadarChart({ features, stats, importance, values }: Props) {
     const svg = d3.select(ref.current)
     svg.selectAll('*').remove()
 
-    const W = ref.current.clientWidth || 380
-    const H = 300
+    const W = ref.current.clientWidth || 280
+    const H = W   // square — chart fills the card
     const cx = W / 2
     const cy = H / 2
-    const R = Math.min(cx, cy) - 60
+    const R = Math.min(cx, cy) - 32
 
     svg.attr('width', W).attr('height', H)
 

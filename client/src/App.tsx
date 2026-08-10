@@ -171,6 +171,7 @@ export default function App() {
                   Adjust the biomarkers below, then click <strong>Run Prediction</strong> to see outputs from all three classifiers.
                 </p>
               </div>
+              <button className="btn-reset btn-reset--above" onClick={handleReset}>↺ Reset Biomarkers</button>
               <BiomarkerForm
                 features={featuresData.features}
                 stats={featuresData.stats}
@@ -178,7 +179,6 @@ export default function App() {
                 onChange={(key, val) => setValues(prev => ({ ...prev, [key]: val }))}
               />
               <div className="form-actions">
-                <button className="btn-reset" onClick={handleReset}>Reset Features</button>
                 <button className="btn-predict" onClick={handlePredict} disabled={loading}>
                   {loading ? 'Predicting…' : 'Run Prediction'}
                 </button>
