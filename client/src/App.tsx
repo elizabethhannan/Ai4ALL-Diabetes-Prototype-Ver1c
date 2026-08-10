@@ -74,20 +74,20 @@ export default function App() {
             <div className="header-brand-text">
               <span className="header-brand-name">AI4ALL</span>
               <span className="header-brand-sub">Summer Cohort 2026</span>
-              <p className="header-research-q">Can supervised machine learning classify Mild Cognitive Impairment in older adults with Type 2 Diabetes?</p>
+              <span className="header-version-badge" style={{marginTop: '4px', alignSelf: 'flex-start'}}>Group 6C</span>
             </div>
           </div>
 
-          {/* Center — title */}
+          {/* Center — title + research question */}
           <div className="header-center">
             <div className="header-title-row">
               <h1 className="header-title">GE-79 MCI Explorer</h1>
-              <span className="header-version-badge">Group 6C</span>
               <div className="header-badge">
                 <span className="badge-dot" />
                 Research Only · Not Diagnostic
               </div>
             </div>
+            <p className="header-research-q">Can supervised machine learning classify Mild Cognitive Impairment in older adults with Type 2 Diabetes?</p>
           </div>
 
           {/* Right — authors */}
@@ -169,7 +169,7 @@ export default function App() {
                 onChange={(key, val) => setValues(prev => ({ ...prev, [key]: val }))}
               />
               <div className="form-actions">
-                <button className="btn-reset" onClick={handleReset}>Reset to Medians</button>
+                <button className="btn-reset" onClick={handleReset}>Reset Features</button>
                 <button className="btn-predict" onClick={handlePredict} disabled={loading}>
                   {loading ? 'Predicting…' : 'Run Prediction'}
                 </button>
