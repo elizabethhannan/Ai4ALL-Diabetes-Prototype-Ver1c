@@ -1,0 +1,175 @@
+.pred-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Consensus ─────────────────────────────────── */
+.consensus {
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid;
+}
+
+.consensus--normal {
+  background: rgba(52, 211, 153, 0.08);
+  border-color: rgba(52, 211, 153, 0.25);
+}
+
+.consensus--impaired {
+  background: rgba(248, 113, 113, 0.08);
+  border-color: rgba(248, 113, 113, 0.3);
+}
+
+.consensus-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.consensus-result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.consensus-icon {
+  font-size: 20px;
+}
+
+.consensus-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.consensus--impaired .consensus-text { color: var(--red); }
+.consensus--normal .consensus-text { color: var(--green); }
+
+.consensus-votes {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+/* ── Per-model cards ───────────────────────────── */
+.pred-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pred-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  border-left: 3px solid var(--model-color, var(--accent));
+  transition: background 0.15s;
+}
+
+.pred-card:hover { background: var(--surface2); }
+
+.pred-card--impaired { border-left-color: var(--red) !important; }
+
+.pred-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.pred-model-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pred-model-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.pred-label-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.badge--normal {
+  background: rgba(52, 211, 153, 0.12);
+  color: var(--green);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+}
+
+.badge--impaired {
+  background: rgba(248, 113, 113, 0.12);
+  color: var(--red);
+  border: 1px solid rgba(248, 113, 113, 0.25);
+}
+
+/* ── Probability bars ──────────────────────────── */
+.prob-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.prob-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.prob-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.prob-bar-wrap {
+  flex: 1;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.prob-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prob-bar--normal { background: var(--green); }
+.prob-bar--impaired { background: var(--red); }
+
+.prob-pct {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-dim);
+  width: 34px;
+  text-align: right;
+}
+
+/* ── Disclaimer ────────────────────────────────── */
+.pred-disclaimer {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  line-height: 1.5;
+  font-style: italic;
+}

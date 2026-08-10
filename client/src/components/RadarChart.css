@@ -1,0 +1,54 @@
+.radar-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.radar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.radar-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.radar-legend {
+  display: flex;
+  gap: 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.legend-line {
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+  border-radius: 1px;
+}
+
+.legend-line--user {
+  background: #38bdf8;
+}
+
+.legend-line--median {
+  background: #475569;
+  background: repeating-linear-gradient(
+    to right,
+    #475569 0,
+    #475569 4px,
+    transparent 4px,
+    transparent 7px
+  );
+}
