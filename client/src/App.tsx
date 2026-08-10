@@ -67,18 +67,91 @@ export default function App() {
       {/* Header */}
       <header className="app-header">
         <div className="header-inner">
-          <div className="header-brand">
-            <span className="header-tag">GE-79 · AI4ALL 2026 · Group 6C</span>
-            <h1 className="header-title">Cognitive-Status Prototype</h1>
+          {/* Left — AI4ALL branding */}
+          <div className="header-left">
+            <svg className="header-brain-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="8" fill="rgba(52,211,153,0.12)" stroke="#34d399" strokeWidth="1.2"/>
+              <circle cx="20" cy="16" r="7" stroke="#34d399" strokeWidth="1.4" fill="none"/>
+              <path d="M13 16 Q10 12 13 9" stroke="#34d399" strokeWidth="1.2" fill="none"/>
+              <path d="M27 16 Q30 12 27 9" stroke="#34d399" strokeWidth="1.2" fill="none"/>
+              <path d="M16 23 L16 30 M20 24 L20 30 M24 23 L24 30" stroke="#34d399" strokeWidth="1.2" strokeLinecap="round"/>
+              <circle cx="16" cy="30" r="1.5" fill="#34d399"/>
+              <circle cx="20" cy="30" r="1.5" fill="#34d399"/>
+              <circle cx="24" cy="30" r="1.5" fill="#34d399"/>
+              <circle cx="13" cy="9" r="1.5" fill="#34d399"/>
+              <circle cx="27" cy="9" r="1.5" fill="#34d399"/>
+            </svg>
+            <div className="header-brand-text">
+              <span className="header-brand-name">AI4ALL</span>
+              <span className="header-brand-sub">Summer Cohort 2026</span>
+            </div>
+          </div>
+
+          {/* Center — title */}
+          <div className="header-center">
+            <div className="header-title-row">
+              <h1 className="header-title">GE-79 MCI Explorer</h1>
+              <span className="header-version-badge">ProtoApp Version 8</span>
+              <div className="header-badge">
+                <span className="badge-dot" />
+                Research Only · Not Diagnostic
+              </div>
+            </div>
             <p className="header-subtitle">
-              Interactive biomarker explorer — Logistic Regression · Decision Tree · Random Forest
+              Can supervised machine learning classify Mild Cognitive Impairment in older adults with Type 2 Diabetes?
             </p>
           </div>
-          <div className="header-badge">
-            <span className="badge-dot" />
-            Research Only · Not Diagnostic
+
+          {/* Right — authors */}
+          <div className="header-right">
+            <div className="header-author">
+              <div className="author-qr">
+                <svg viewBox="0 0 32 32" width="40" height="40">
+                  <rect width="32" height="32" fill="#111" rx="3"/>
+                  <rect x="2" y="2" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
+                  <rect x="5" y="5" width="6" height="6" fill="#34d399"/>
+                  <rect x="18" y="2" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
+                  <rect x="21" y="5" width="6" height="6" fill="#34d399"/>
+                  <rect x="2" y="18" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
+                  <rect x="5" y="21" width="6" height="6" fill="#34d399"/>
+                  <rect x="18" y="18" width="4" height="4" fill="#34d399"/>
+                  <rect x="24" y="18" width="4" height="4" fill="#34d399"/>
+                  <rect x="18" y="24" width="4" height="4" fill="#34d399"/>
+                  <rect x="24" y="24" width="4" height="4" fill="#34d399"/>
+                </svg>
+              </div>
+              <div className="author-info">
+                <span className="author-name">Elizabeth H.</span>
+                <span className="author-link">Author · LinkedIn</span>
+              </div>
+            </div>
+            <div className="header-author">
+              <div className="author-qr">
+                <svg viewBox="0 0 32 32" width="40" height="40">
+                  <rect width="32" height="32" fill="#111" rx="3"/>
+                  <rect x="2" y="2" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
+                  <rect x="5" y="5" width="6" height="6" fill="#34d399"/>
+                  <rect x="18" y="2" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
+                  <rect x="21" y="5" width="6" height="6" fill="#34d399"/>
+                  <rect x="2" y="18" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
+                  <rect x="5" y="21" width="6" height="6" fill="#34d399"/>
+                  <rect x="22" y="18" width="4" height="4" fill="#34d399"/>
+                  <rect x="18" y="24" width="4" height="4" fill="#34d399"/>
+                  <rect x="26" y="22" width="4" height="4" fill="#34d399"/>
+                  <rect x="20" y="26" width="4" height="4" fill="#34d399"/>
+                </svg>
+              </div>
+              <div className="author-info">
+                <span className="author-name">Agastyya K.</span>
+                <span className="author-link">Author · LinkedIn</span>
+              </div>
+            </div>
           </div>
         </div>
+
+        {/* Accent bar */}
+        <div className="header-accent-bar" />
+
         <nav className="tabs">
           <button
             className={`tab ${activeTab === 'predict' ? 'tab-active' : ''}`}
@@ -145,11 +218,49 @@ export default function App() {
 
       {/* Footer */}
       <footer className="app-footer">
-        <p>
-          GE-79 · CDED 1.0.1 · n=75 · 5-fold CV · AI4ALL Ignite 2026 · Group 6C ·
-          Elizabeth Hannan &amp; Agastyya Kola ·
-          Research prototype — not a screening or diagnostic tool.
-        </p>
+        <div className="footer-inner">
+          <div className="footer-col">
+            <svg className="footer-icon" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            <div>
+              <span className="footer-col-title">NOT A DIAGNOSTIC TOOL.</span>
+              <p className="footer-col-body">For research and educational purposes only. Do not use for clinical decision-making.</p>
+            </div>
+          </div>
+          <div className="footer-divider" />
+          <div className="footer-col">
+            <svg className="footer-icon" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+            <div>
+              <span className="footer-col-title">AI4ALL SUMMER COHORT 2026</span>
+              <p className="footer-col-body">Building AI for equity. Advancing diversity in science and technology.</p>
+            </div>
+          </div>
+          <div className="footer-divider" />
+          <div className="footer-col">
+            <svg className="footer-icon" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+            <div>
+              <span className="footer-col-title">SPECIAL ACKNOWLEDGMENT</span>
+              <p className="footer-col-body">We gratefully acknowledge Professor Joyce D. Williams for her guidance, mentorship, and unwavering support.</p>
+            </div>
+          </div>
+          <div className="footer-divider" />
+          <div className="footer-col">
+            <svg className="footer-icon" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+            <div>
+              <span className="footer-col-title">DATASET CITATION (APA 7)</span>
+              <p className="footer-col-body">Novak, V., &amp; Quispe, R. (2022). <em>Cerebromicrovascular disease in elderly with diabetes</em> [Version 1.0.1] [Data set]. PhysioNet. https://doi.org/10.13026/00bm-2x81</p>
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   )

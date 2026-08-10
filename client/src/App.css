@@ -15,31 +15,81 @@
 
 .header-inner {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  padding: 16px 24px 8px;
-  gap: 16px;
+  padding: 12px 24px 10px;
+  gap: 20px;
 }
 
-.header-tag {
-  font-size: 11px;
+/* Left — AI4ALL brand */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  min-width: 130px;
+}
+
+.header-brain-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.header-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-brand-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: #34d399;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+
+.header-brand-sub {
+  font-size: 10px;
+  color: var(--text-muted);
   font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--accent);
-  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Center — title block */
+.header-center {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .header-title {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 800;
   color: var(--text);
-  margin-top: 2px;
+  line-height: 1;
 }
 
-.header-subtitle {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 2px;
+.header-version-badge {
+  background: rgba(52, 211, 153, 0.15);
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  color: #34d399;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 3px 9px;
+  white-space: nowrap;
 }
 
 .header-badge {
@@ -49,12 +99,11 @@
   background: rgba(248, 113, 113, 0.08);
   border: 1px solid rgba(248, 113, 113, 0.25);
   border-radius: 20px;
-  padding: 5px 12px;
+  padding: 4px 11px;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--red);
   white-space: nowrap;
-  margin-top: 4px;
   flex-shrink: 0;
 }
 
@@ -71,6 +120,63 @@
   50% { opacity: 0.3; }
 }
 
+.header-subtitle {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+  max-width: 520px;
+  line-height: 1.4;
+}
+
+/* Right — authors */
+.header-right {
+  display: flex;
+  gap: 14px;
+  flex-shrink: 0;
+  min-width: 130px;
+  justify-content: flex-end;
+}
+
+.header-author {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.author-qr {
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  border-radius: 4px;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.author-name {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.author-link {
+  font-size: 9px;
+  color: #34d399;
+  font-weight: 600;
+}
+
+/* Accent bar */
+.header-accent-bar {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #34d399 30%, #34d399 70%, transparent);
+  opacity: 0.5;
+}
+
 .tabs {
   display: flex;
   padding: 0 24px;
@@ -83,7 +189,7 @@
   color: var(--text-muted);
   padding: 8px 16px;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   border-bottom: 2px solid transparent;
   transition: color 0.15s, border-color 0.15s;
 }
@@ -198,9 +304,59 @@
 /* ── Footer ──────────────────────────────────────────── */
 .app-footer {
   background: var(--surface);
-  border-top: 1px solid var(--border);
-  padding: 12px 24px;
-  text-align: center;
-  font-size: 11px;
+  border-top: 2px solid rgba(52, 211, 153, 0.35);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  padding: 14px 24px;
+}
+
+.footer-col {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1;
+  padding: 0 16px;
+}
+
+.footer-col:first-child { padding-left: 0; }
+.footer-col:last-child  { padding-right: 0; }
+
+.footer-divider {
+  width: 1px;
+  align-self: stretch;
+  background: rgba(52, 211, 153, 0.2);
+  flex-shrink: 0;
+}
+
+.footer-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.footer-col-title {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  color: #34d399;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.footer-col-body {
+  font-size: 10px;
   color: var(--text-muted);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.footer-col-body em {
+  font-style: italic;
+  color: var(--text-dim);
 }
