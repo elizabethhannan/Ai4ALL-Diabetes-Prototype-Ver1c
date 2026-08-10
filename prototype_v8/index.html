@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GE-79 MCI Explorer — ProtoApp v8</title>
+    
+    <!-- Styles embedded (copy all CSS below into <style> tag) -->
+    <style>
+        /* ================================================================
+           RESPONSIVE DESIGN — Mobile First
+           ================================================================ */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --color-primary: #1a5f4a;
+            --color-teal: #2d9a96;
+            --color-red-shap: #dc3545;
+            --color-orange: #fd7e14;
+            --color-bg: #f8f9fa;
+            --color-text: #212529;
+            --color-border: #dee2e6;
+            --color-white: #ffffff;
+            
+            /* Typography */
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-weight-normal: 400;
+            --font-weight-semi: 600;
+            --font-weight-bold: 700;
+            
+            /* Spacing */
+            --spacing-xs: 8px;
+            --spacing-sm: 12px;
+            --spacing-md: 16px;
+            --spacing-lg: 20px;
+            --spacing-xl: 24px;
+            --spacing-xxl: 32px;
+            
+            /* Breakpoints */
+            --breakpoint-mobile: 480px;
+            --breakpoint-tablet: 768px;
+            --breakpoint-desktop: 1024px;
+        }
+        
+        body {
+            font-family: var(--font-family);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* ================================================================
+           HEADER & BRANDING
+           ================================================================ */
+        
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-teal) 100%);
+            color: var(--color-white);
+            padding: var(--spacing-md);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .brain-icon {
+            font-size: 28px;
+        }
+        
+        .header-title {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .header-title h1 {
+            font-size: 18px;
+            font-weight: var(--font-weight-bold);
+            margin: 0;
+        }
+        
+        .header-title p {
+            font-size: 12px;
+            opacity: 0.9;
+            margin: 0;
+        }
+        
+        .header-qr {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        
+        .qr-placeholder {
+            width: 40px;
+            height: 40px;
+            background: var(--color-white);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--color-primary);
+            font-weight: var(--font-weight-semi);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .qr-placeholder:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Mobile header */
+        @media (max-width: 768px) {
+            header {
+                padding: var(--spacing-sm);
+            }
+            
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .header-title h1 {
+                font-size: 16px;
+            }
+            
+            .header-title p {
+                font-size: 11px;
+            }
+            
+            .qr-placeholder {
+                width: 36px;
+                height: 36px;
+                font-size: 9px;
+            }
+        }
+        
+        /* ================================================================
+           MAIN CONTENT
+           ================================================================ */
+        
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+        }
+        
+        @media (max-width: 768px) {
+            main {
+                padding: var(--spacing-md);
+            }
+        }
+        
+        /* ================================================================
+           BRAIN ANIMATION SECTION
+           ================================================================ */
+        
+        .brain-hero {
+            background: var(--color-white);
+            border-radius: 12px;
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #brain-canvas {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .brain-fallback {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(45,154,150,0.1) 0%, rgba(26,95,74,0.1) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-teal);
+            font-weight: var(--font-weight-semi);
+        }
+        
+        @media (max-width: 768px) {
+            .brain-hero {
+                min-height: 200px;
+                padding: var(--spacing-md);
+            }
+        }
+        
+        /* ================================================================
+           SELECTOR SECTION (Steps 1-2)
+           ================================================================ */
+        
+        .selector-section {
+            background: var(--color-white);
+            border-radius: 12px;
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .step-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .step-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .step-number {
+            background: var(--color-primary);
+            color: var(--color-white);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-weight-bold);
+            font-size: 16px;
+        }
+        
+        .step-title {
+            font-size: 18px;
+            font-weight: var(--font-weight-semi);
+            color: var(--color-text);
+        }
+        
+        /* Model selector */
+        .model-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .model-card {
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            padding: var(--spacing-md);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        
+        .model-card:hover {
+            border-color: var(--color-teal);
+            box-shadow: 0 4px 12px rgba(45, 154, 150, 0.15);
+        }
+        
+        .model-card.selected {
+            border-color: var(--color-primary);
+            background-color: rgba(26, 95, 74, 0.05);
+        }
+        
+        .model-icon {
+            font-size: 32px;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .model-name {
+            font-weight: var(--font-weight-semi);
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        
+        .model-description {
+            font-size: 13px;
+            color: #6c757d;
+        }
+        
+        /* Biomarker inputs */
+        .biomarker-inputs {
+            display: grid;
+            gap: var(--spacing-md);
+        }
+        
+        .biomarker-row {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 0.8fr;
+            gap: var(--spacing-md);
+            align-items: end;
+        }
+        
+        @media (max-width: 768px) {
+            .biomarker-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .input-label {
+            font-size: 13px;
+            font-weight: var(--font-weight-semi);
+            color: var(--color-text);
+        }
+        
+        .input-label-hint {
+            font-size: 11px;
+            color: #6c757d;
+            font-weight: normal;
+        }
+        
+        select, input[type="number"] {
+            padding: var(--spacing-sm);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: var(--font-family);
+            transition: border-color 0.2s;
+        }
+        
+        select:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: var(--color-teal);
+            box-shadow: 0 0 0 3px rgba(45, 154, 150, 0.1);
+        }
+        
+        .input-unit {
+            font-size: 12px;
+            color: #6c757d;
+            padding-top: 6px;
+        }
+        
+        /* Preset profiles */
+        .preset-profiles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .preset-btn {
+            padding: var(--spacing-sm);
+            border: 1px solid var(--color-border);
+            background: var(--color-white);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: var(--font-weight-semi);
+            transition: all 0.2s;
+        }
+        
+        .preset-btn:hover {
+            border-color: var(--color-teal);
+            background-color: rgba(45, 154, 150, 0.05);
+        }
+        
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: var(--font-weight-semi);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-family);
+        }
+        
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+        
+        .btn-primary:hover {
+            background-color: #164c3b;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 95, 74, 0.3);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-reset {
+            border: 2px solid var(--color-orange) !important;
+            color: var(--color-orange);
+            background: transparent;
+        }
+        
+        .btn-reset:hover {
+            background-color: rgba(253, 126, 20, 0.1);
+            border-color: var(--color-orange);
+            transform: translateY(-1px);
+        }
+        
+        .btn-reset:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        @media (max-width: 768px) {
+            button {
+                padding: 11px 18px;
+                font-size: 13px;
+                flex: 1;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+        }
+        
+        /* ================================================================
+           RESULTS CARDS (5-CARD GRID)
+           ================================================================ */
+        
+        .results-section {
+            margin-top: var(--spacing-xl);
+        }
+        
+        .results-divider {
+            height: 2px;
+            background: var(--color-white);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        @media (max-width: 1024px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: var(--color-white);
+            border-radius: 12px;
+            padding: var(--spacing-lg);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--color-teal);
+        }
+        
+        .card-header {
+            font-size: 16px;
+            font-weight: var(--font-weight-semi);
+            margin-bottom: var(--spacing-md);
+            color: var(--color-text);
+        }
+        
+        .card-label {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: var(--spacing-sm);
+        }
+        
+        /* Card 1: Probability Gauge */
+        .probability-gauge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+        }
+        
+        .gauge-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--color-teal) 0deg,
+                var(--color-primary) 180deg,
+                #e9ecef 180deg
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .gauge-inner {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--color-white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .gauge-value {
+            font-size: 48px;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+        }
+        
+        .gauge-label {
+            font-size: 12px;
+            color: #6c757d;
+        }
+        
+        .gauge-class {
+            font-size: 18px;
+            font-weight: var(--font-weight-semi);
+            color: var(--color-text);
+            margin-top: var(--spacing-md);
+        }
+        
+        @media (max-width: 768px) {
+            .gauge-circle {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .gauge-inner {
+                width: 135px;
+                height: 135px;
+            }
+            
+            .gauge-value {
+                font-size: 36px;
+            }
+        }
+        
+        /* Card 2: SHAP Waterfall */
+        .shap-waterfall {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .waterfall-bars {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+            margin: var(--spacing-md) 0;
+        }
+        
+        .waterfall-bar {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .bar-label {
+            font-size: 12px;
+            font-weight: var(--font-weight-semi);
+            min-width: 120px;
+            color: var(--color-text);
+        }
+        
+        .bar-viz {
+            flex: 1;
+            height: 24px;
+            background: linear-gradient(90deg, #e9ecef 0%, #dee2e6 100%);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .bar-fill.positive {
+            background-color: var(--color-red-shap);
+        }
+        
+        .bar-fill.negative {
+            background-color: #0dcaf0;
+        }
+        
+        .bar-value {
+            font-size: 11px;
+            font-weight: var(--font-weight-semi);
+            color: var(--color-red-shap);
+            margin-left: var(--spacing-sm);
+            min-width: 40px;
+        }
+        
+        /* Card 3: Decision Tree Path / RF Trees */
+        .mechanism-card {
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 12px;
+            background: #f8f9fa;
+            padding: var(--spacing-md);
+            border-radius: 6px;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+        
+        .tree-node {
+            margin-left: 20px;
+            color: var(--color-primary);
+        }
+        
+        /* Card 4: Confusion Matrix */
+        .confusion-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-md) 0;
+            font-size: 13px;
+        }
+        
+        .confusion-table th,
+        .confusion-table td {
+            padding: var(--spacing-sm);
+            text-align: center;
+            border: 1px solid var(--color-border);
+        }
+        
+        .confusion-table th {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            font-weight: var(--font-weight-semi);
+        }
+        
+        .confusion-table td {
+            background-color: var(--color-bg);
+        }
+        
+        .confusion-table td.diagonal {
+            background-color: rgba(45, 154, 150, 0.1);
+            font-weight: var(--font-weight-semi);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+        
+        .metric-box {
+            padding: var(--spacing-md);
+            background: var(--color-bg);
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        .metric-label {
+            font-size: 11px;
+            color: #6c757d;
+            margin-bottom: 4px;
+        }
+        
+        .metric-value {
+            font-size: 20px;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+        }
+        
+        /* Card 5: SHAP Beeswarm (Full Width, Last Card) */
+        .shap-beeswarm-card {
+            grid-column: 1 / -1;
+            border-left-color: var(--color-red-shap);
+        }
+        
+        #shap-beeswarm-svg {
+            width: 100%;
+            height: auto;
+            min-height: 400px;
+        }
+        
+        @media (max-width: 768px) {
+            .results-grid {
+                gap: var(--spacing-md);
+            }
+            
+            .card {
+                padding: var(--spacing-md);
+            }
+            
+            .confusion-table {
+                font-size: 11px;
+            }
+            
+            .confusion-table th,
+            .confusion-table td {
+                padding: 8px 4px;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* ================================================================
+           FOOTER
+           ================================================================ */
+        
+        footer {
+            background: var(--color-white);
+            border-top: 2px solid var(--color-border);
+            padding: var(--spacing-xl) var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+            font-size: 12px;
+            color: #6c757d;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-section {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .footer-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .footer-title {
+            font-weight: var(--font-weight-semi);
+            color: var(--color-text);
+            margin-bottom: 8px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--color-teal);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--color-primary);
+        }
+        
+        .disclaimer {
+            background: rgba(253, 126, 20, 0.05);
+            border-left: 4px solid var(--color-orange);
+            padding: var(--spacing-md);
+            border-radius: 4px;
+            margin-top: var(--spacing-lg);
+            font-size: 11px;
+            line-height: 1.6;
+        }
+        
+        .citation-apa {
+            background: var(--color-bg);
+            padding: var(--spacing-md);
+            border-radius: 4px;
+            margin-top: var(--spacing-md);
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            font-size: 11px;
+        }
+        
+        /* ================================================================
+           LOADING & STATES
+           ================================================================ */
+        
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            color: var(--color-teal);
+            font-weight: var(--font-weight-semi);
+        }
+        
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(45, 154, 150, 0.2);
+            border-top-color: var(--color-teal);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: var(--spacing-md);
+            border-radius: 6px;
+            margin-top: var(--spacing-md);
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with QR codes -->
+    <header>
+        <div class="header-container">
+            <div class="header-left">
+                <div class="brain-icon">🧠</div>
+                <div class="header-title">
+                    <h1>GE-79 MCI Explorer</h1>
+                    <p>Cognitive Status Classification</p>
+                </div>
+            </div>
+            <div class="header-qr">
+                <a href="#" class="qr-placeholder" title="Author 1 LinkedIn">QR 1</a>
+                <a href="#" class="qr-placeholder" title="GitHub Repository">QR 2</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main>
+        <!-- Brain animation hero -->
+        <section class="brain-hero">
+            <canvas id="brain-canvas"></canvas>
+            <div class="brain-fallback hidden">
+                🧠 Interactive Brain Visualization
+            </div>
+        </section>
+
+        <!-- Selector section (Steps 1-2) -->
+        <section class="selector-section">
+            <!-- Step 1: Model Selection -->
+            <div class="step-group">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Select a Model</div>
+                </div>
+                <p style="margin-bottom: var(--spacing-md); color: #6c757d; font-size: 14px;">
+                    Choose which machine learning model to explore. Both classify Mild Cognitive Impairment.
+                </p>
+                <div class="model-selector">
+                    <div class="model-card" data-model="decision_tree">
+                        <div class="model-icon">🌳</div>
+                        <div class="model-name">Decision Tree</div>
+                        <div class="model-description">Simpler, more interpretable</div>
+                    </div>
+                    <div class="model-card" data-model="random_forest">
+                        <div class="model-icon">🌲</div>
+                        <div class="model-name">Random Forest</div>
+                        <div class="model-description">More complex, more accurate</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Biomarker Selection -->
+            <div class="step-group">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Enter 3 Biomarker Values</div>
+                </div>
+                <p style="margin-bottom: var(--spacing-md); color: #6c757d; font-size: 14px;">
+                    Select three measurements. The remaining 11 will auto-fill from cohort reference values.
+                </p>
+                
+                <div style="margin-bottom: var(--spacing-lg);">
+                    <p style="font-size: 12px; font-weight: 600; margin-bottom: var(--spacing-sm); color: var(--color-text);">
+                        Quick Start: Load a preset profile
+                    </p>
+                    <div class="preset-profiles">
+                        <button class="preset-btn" data-preset="reference">📊 Reference</button>
+                        <button class="preset-btn" data-preset="no_impairment">✅ No Impairment</button>
+                        <button class="preset-btn" data-preset="impaired">⚠️ Impaired</button>
+                    </div>
+                </div>
+                
+                <div class="biomarker-inputs">
+                    <div class="biomarker-row">
+                        <div class="input-group">
+                            <label class="input-label">
+                                Biomarker 1
+                                <span class="input-label-hint">(Select from list)</span>
+                            </label>
+                            <select id="bm-1-select" data-bm="1">
+                                <option value="">Choose a biomarker...</option>
+                                <!-- Options populated by JS -->
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Value</label>
+                            <input type="number" id="bm-1-value" step="0.01" placeholder="Enter value">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label-hint">Unit</label>
+                            <div class="input-unit" id="bm-1-unit">—</div>
+                        </div>
+                    </div>
+                    
+                    <div class="biomarker-row">
+                        <div class="input-group">
+                            <label class="input-label">
+                                Biomarker 2
+                                <span class="input-label-hint">(Select from list)</span>
+                            </label>
+                            <select id="bm-2-select" data-bm="2">
+                                <option value="">Choose a biomarker...</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Value</label>
+                            <input type="number" id="bm-2-value" step="0.01" placeholder="Enter value">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label-hint">Unit</label>
+                            <div class="input-unit" id="bm-2-unit">—</div>
+                        </div>
+                    </div>
+                    
+                    <div class="biomarker-row">
+                        <div class="input-group">
+                            <label class="input-label">
+                                Biomarker 3
+                                <span class="input-label-hint">(Select from list)</span>
+                            </label>
+                            <select id="bm-3-select" data-bm="3">
+                                <option value="">Choose a biomarker...</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Value</label>
+                            <input type="number" id="bm-3-value" step="0.01" placeholder="Enter value">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label-hint">Unit</label>
+                            <div class="input-unit" id="bm-3-unit">—</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn-primary" id="run-model-btn" disabled>
+                        ▶ Run Model
+                    </button>
+                    <button class="btn-reset" id="reset-btn">
+                        ⟲ Reset
+                    </button>
+                </div>
+                
+                <div id="error-message" class="error hidden"></div>
+            </div>
+        </section>
+
+        <!-- Results section (5 cards) -->
+        <section class="results-section hidden" id="results-section">
+            <div class="results-divider"></div>
+            
+            <div class="results-grid">
+                <!-- Card 1: Probability Gauge -->
+                <div class="card">
+                    <div class="card-header">1. Classification Probability</div>
+                    <div class="probability-gauge">
+                        <div class="gauge-circle">
+                            <div class="gauge-inner">
+                                <div class="gauge-value" id="prob-value">—</div>
+                                <div class="gauge-label">Risk %</div>
+                            </div>
+                        </div>
+                        <div class="gauge-class" id="prob-class">—</div>
+                    </div>
+                    <div class="card-label">Profile-Level: This patient's predicted class</div>
+                </div>
+
+                <!-- Card 2: SHAP Waterfall (Individual) -->
+                <div class="card">
+                    <div class="card-header">2. Feature Contributions (SHAP Waterfall)</div>
+                    <div class="waterfall-bars" id="waterfall-container">
+                        <p style="color: #6c757d; font-size: 13px; text-align: center; padding: var(--spacing-lg) 0;">
+                            Run model to see explanations
+                        </p>
+                    </div>
+                    <div class="card-label">Profile-Level: How each feature pushes the prediction (RED = increases impairment risk)</div>
+                </div>
+
+                <!-- Card 3: Decision Tree Path / Random Forest Trees -->
+                <div class="card">
+                    <div class="card-header">3. Model Mechanism</div>
+                    <div class="mechanism-card" id="mechanism-container">
+                        <p style="color: #6c757d; font-size: 13px;">
+                            Run model to see decision path (Decision Tree) or tree votes (Random Forest)
+                        </p>
+                    </div>
+                    <div class="card-label">Profile-Level: How the selected model made its decision</div>
+                </div>
+
+                <!-- Card 4: Confusion Matrix -->
+                <div class="card">
+                    <div class="card-header">4. Model Evaluation (5-Fold Cross-Validation)</div>
+                    <table class="confusion-table" id="confusion-table">
+                        <tr>
+                            <th colspan="3">Predicted vs. Actual (75 participants)</th>
+                        </tr>
+                        <tr>
+                            <th>Predicted ↓ / Actual →</th>
+                            <th>No Impairment</th>
+                            <th>Impaired</th>
+                        </tr>
+                        <tr>
+                            <td><strong>No Impairment</strong></td>
+                            <td class="diagonal" id="cm-tn">—</td>
+                            <td id="cm-fp">—</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Impaired</strong></td>
+                            <td id="cm-fn">—</td>
+                            <td class="diagonal" id="cm-tp">—</td>
+                        </tr>
+                    </table>
+                    <div class="metrics-grid">
+                        <div class="metric-box">
+                            <div class="metric-label">Accuracy</div>
+                            <div class="metric-value" id="metric-accuracy">—</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">Precision</div>
+                            <div class="metric-value" id="metric-precision">—</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">Recall</div>
+                            <div class="metric-value" id="metric-recall">—</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">F1-Score</div>
+                            <div class="metric-value" id="metric-f1">—</div>
+                        </div>
+                    </div>
+                    <div class="card-label">Cohort-Level: Fixed evaluation on all 75 participants (research-only evidence)</div>
+                </div>
+
+                <!-- Card 5: SHAP Beeswarm (Cohort-Level, Full Width, Last) -->
+                <div class="card shap-beeswarm-card">
+                    <div class="card-header">5. Feature Importance Across Cohort (SHAP Beeswarm)</div>
+                    <svg id="shap-beeswarm-svg"></svg>
+                    <div style="margin-top: var(--spacing-md); text-align: center; color: #6c757d; font-size: 13px;">
+                        Each dot = one participant • RED = increases impairment risk • BLUE = decreases risk
+                    </div>
+                    <div class="card-label">Cohort-Level: How all 14 biomarkers vary in importance across the GE-79 population</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-title">About This Research Tool</div>
+                <p>
+                    This interactive prototype demonstrates how machine learning models predict Mild Cognitive Impairment (MCI) 
+                    in older adults with Type 2 Diabetes using clinical and MRI-derived biomarkers. All predictions are for 
+                    <strong>research and educational purposes only</strong>.
+                </p>
+            </div>
+            
+            <div class="footer-section">
+                <div class="footer-title">Authors & Acknowledgments</div>
+                <div class="footer-links">
+                    <a href="#">Elizabeth Hannan (LinkedIn)</a>
+                    <a href="#">Agastyya Kala (LinkedIn)</a>
+                    <a href="#">GitHub Repository</a>
+                    <a href="#">AI4ALL Ignite 2026</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <div class="disclaimer">
+                    <strong>⚠️ Research-Only Disclaimer:</strong> This tool is not a diagnostic instrument and should not be used for clinical 
+                    decision-making. Predictions are based on a small research cohort (n=75) and have not been validated on independent data. 
+                    All results are exploratory and should be interpreted with caution.
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <div class="footer-title">Citation (APA 7)</div>
+                <div class="citation-apa">
+                    Hannan, E., Kala, A., & AI4ALL Summer Cohort. (2026). GE-79 MCI Explorer: Machine learning classification 
+                    of mild cognitive impairment in older adults with type 2 diabetes [Interactive prototype]. 
+                    Retrieved from https://github.com/elizabethhannan/Ai4ALL-Diabetes-Prototype-Ver1c
+                </div>
+            </div>
+            
+            <div style="margin-top: var(--spacing-lg); padding-top: var(--spacing-lg); border-top: 1px solid var(--color-border); text-align: center; font-size: 11px;">
+                <p>© 2026 AI4ALL Ignite | ProtoApp Version 8.0 | Dataset: PhysioNet GE-79 (Novak & Quispe, 2022)</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main application script -->
+    <script>
+        // ================================================================
+        // CONFIGURATION & STATE
+        // ================================================================
+        
+        const API_BASE = 'http://localhost:8000/api';
+        
+        let appState = {
+            selectedModel: null,
+            biomarkers: {},
+            biomarkersList: [],
+            results: null,
+            isLoading: false,
+        };
+        
+        // ================================================================
+        // UTILITY FUNCTIONS
+        // ================================================================
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+            setTimeout(() => errorDiv.classList.add('hidden'), 5000);
+        }
+        
+        function formatPercent(value) {
+            return Math.round(value * 100);
+        }
+        
+        function formatNumber(value, decimals = 2) {
+            return value.toFixed(decimals);
+        }
+        
+        // ================================================================
+        // INITIALIZE APP
+        // ================================================================
+        
+        async function initializeApp() {
+            try {
+                // Fetch biomarker list
+                const response = await fetch(`${API_BASE}/biomarkers`);
+                const data = await response.json();
+                
+                appState.biomarkersList = data.biomarkers;
+                
+                // Populate dropdowns
+                populateBiomarkerDropdowns();
+                
+                // Initialize brain animation
+                initializeBrainAnimation();
+                
+            } catch (error) {
+                console.error('Failed to initialize:', error);
+                showError('Failed to load biomarker list. Please refresh the page.');
+            }
+        }
+        
+        function populateBiomarkerDropdowns() {
+            const selects = document.querySelectorAll('select[data-bm]');
+            selects.forEach(select => {
+                appState.biomarkersList.forEach(bm => {
+                    const option = document.createElement('option');
+                    option.value = bm.key;
+                    option.textContent = `${bm.display_name} (${bm.unit})`;
+                    select.appendChild(option);
+                });
+                
+                // Add change listener
+                select.addEventListener('change', (e) => {
+                    const bmIndex = select.dataset.bm;
+                    const selectedKey = e.target.value;
+                    if (selectedKey) {
+                        const bm = appState.biomarkersList.find(b => b.key === selectedKey);
+                        document.getElementById(`bm-${bmIndex}-unit`).textContent = bm.unit;
+                    }
+                    updateRunButtonState();
+                });
+            });
+        }
+        
+        function updateRunButtonState() {
+            const hasModel = appState.selectedModel !== null;
+            const hasValues = ['1', '2', '3'].every(i => {
+                const select = document.getElementById(`bm-${i}-select`);
+                const input = document.getElementById(`bm-${i}-value`);
+                return select.value && input.value;
+            });
+            
+            document.getElementById('run-model-btn').disabled = !(hasModel && hasValues);
+        }
+        
+        // ================================================================
+        // MODEL SELECTION
+        // ================================================================
+        
+        document.querySelectorAll('.model-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.model-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                appState.selectedModel = card.dataset.model;
+                updateRunButtonState();
+            });
+        });
+        
+        // ================================================================
+        // PRESET PROFILES
+        // ================================================================
+        
+        const presetData = {
+            reference: {
+                biomarkers: [
+                    { key: 'CSF_ptau', value: 45.0 },
+                    { key: 'Fasting_glucose', value: 125.0 },
+                    { key: 'Age', value: 68.0 },
+                ],
+            },
+            no_impairment: {
+                biomarkers: [
+                    { key: 'CSF_ptau', value: 30.0 },
+                    { key: 'Fasting_glucose', value: 100.0 },
+                    { key: 'Age', value: 60.0 },
+                ],
+            },
+            impaired: {
+                biomarkers: [
+                    { key: 'CSF_ptau', value: 80.0 },
+                    { key: 'Fasting_glucose', value: 180.0 },
+                    { key: 'Age', value: 75.0 },
+                ],
+            },
+        };
+        
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const presetKey = btn.dataset.preset;
+                const preset = presetData[presetKey];
+                
+                preset.biomarkers.forEach((bm, i) => {
+                    const index = i + 1;
+                    document.getElementById(`bm-${index}-select`).value = bm.key;
+                    document.getElementById(`bm-${index}-value`).value = bm.value;
+                    
+                    const bmInfo = appState.biomarkersList.find(b => b.key === bm.key);
+                    document.getElementById(`bm-${index}-unit`).textContent = bmInfo.unit;
+                });
+                
+                updateRunButtonState();
+            });
+        });
+        
+        // ================================================================
+        // RUN MODEL
+        // ================================================================
+        
+        document.getElementById('run-model-btn').addEventListener('click', runModel);
+        
+        async function runModel() {
+            if (appState.isLoading) return;
+            
+            appState.isLoading = true;
+            document.getElementById('run-model-btn').disabled = true;
+            document.getElementById('error-message').classList.add('hidden');
+            
+            try {
+                // Collect biomarker values
+                const biomarkers = [];
+                for (let i = 1; i <= 3; i++) {
+                    const key = document.getElementById(`bm-${i}-select`).value;
+                    const value = parseFloat(document.getElementById(`bm-${i}-value`).value);
+                    biomarkers.push({ key, value });
+                }
+                
+                // Call API
+                const response = await fetch(`${API_BASE}/predict`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model_type: appState.selectedModel,
+                        biomarkers: biomarkers,
+                    }),
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                appState.results = data;
+                
+                // Render results
+                renderResults(data);
+                document.getElementById('results-section').classList.remove('hidden');
+                
+            } catch (error) {
+                console.error('Run model error:', error);
+                showError(`Prediction failed: ${error.message}`);
+            } finally {
+                appState.isLoading = false;
+                updateRunButtonState();
+            }
+        }
+        
+        // ================================================================
+        // RENDER RESULTS
+        // ================================================================
+        
+        function renderResults(data) {
+            // Card 1: Probability
+            const probValue = formatPercent(data.probability_impaired);
+            document.getElementById('prob-value').textContent = probValue;
+            document.getElementById('prob-class').textContent = data.predicted_class;
+            
+            // Card 2: SHAP Waterfall
+            renderSHAPWaterfall(data.shap_waterfall);
+            
+            // Card 3: Mechanism
+            renderMechanism(data);
+            
+            // Card 4: Confusion Matrix
+            renderConfusionMatrix(data.confusion_matrix);
+            
+            // Card 5: SHAP Beeswarm (static for now)
+            renderSHAPBeeswarm();
+        }
+        
+        function renderSHAPWaterfall(shap) {
+            const container = document.getElementById('waterfall-container');
+            container.innerHTML = '';
+            
+            shap.contributions.forEach(contrib => {
+                const row = document.createElement('div');
+                row.className = 'waterfall-bar';
+                
+                const label = document.createElement('div');
+                label.className = 'bar-label';
+                label.textContent = contrib.name;
+                
+                const viz = document.createElement('div');
+                viz.className = 'bar-viz';
+                
+                const fill = document.createElement('div');
+                fill.className = `bar-fill ${contrib.value > 0 ? 'positive' : 'negative'}`;
+                fill.style.width = Math.abs(contrib.value * 300) + 'px';
+                viz.appendChild(fill);
+                
+                const value = document.createElement('div');
+                value.className = 'bar-value';
+                value.textContent = formatNumber(contrib.value, 3);
+                
+                row.appendChild(label);
+                row.appendChild(viz);
+                row.appendChild(value);
+                container.appendChild(row);
+            });
+        }
+        
+        function renderMechanism(data) {
+            const container = document.getElementById('mechanism-container');
+            container.innerHTML = '';
+            
+            if (data.model_type === 'decision_tree' && data.decision_tree_path) {
+                container.textContent = data.decision_tree_path;
+            } else if (data.model_type === 'random_forest' && data.random_forest_trees) {
+                let html = '<strong>Random Forest Votes (100 trees ensemble):</strong><br>';
+                data.random_forest_trees.forEach(tree => {
+                    const confStr = formatNumber(tree.confidence, 2);
+                    html += `<div class="tree-node">Tree #${tree.tree_id}: ${tree.prediction} (confidence: ${confStr})</div>`;
+                });
+                container.innerHTML = html;
+            }
+        }
+        
+        function renderConfusionMatrix(cm) {
+            document.getElementById('cm-tn').textContent = cm.true_negative;
+            document.getElementById('cm-fp').textContent = cm.false_positive;
+            document.getElementById('cm-fn').textContent = cm.false_negative;
+            document.getElementById('cm-tp').textContent = cm.true_positive;
+            
+            document.getElementById('metric-accuracy').textContent = formatNumber(cm.accuracy, 3);
+            document.getElementById('metric-precision').textContent = formatNumber(cm.precision, 3);
+            document.getElementById('metric-recall').textContent = formatNumber(cm.recall, 3);
+            document.getElementById('metric-f1').textContent = formatNumber(cm.f1, 3);
+        }
+        
+        function renderSHAPBeeswarm() {
+            // Placeholder SVG for beeswarm
+            const svg = document.getElementById('shap-beeswarm-svg');
+            svg.innerHTML = '<text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="#6c757d">Cohort SHAP distribution loaded from backend</text>';
+        }
+        
+        // ================================================================
+        // RESET
+        // ================================================================
+        
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            // Clear selections
+            document.querySelectorAll('.model-card').forEach(c => c.classList.remove('selected'));
+            document.querySelectorAll('select').forEach(s => s.value = '');
+            document.querySelectorAll('input[type="number"]').forEach(i => i.value = '');
+            
+            // Hide results
+            document.getElementById('results-section').classList.add('hidden');
+            document.getElementById('error-message').classList.add('hidden');
+            
+            // Reset state
+            appState.selectedModel = null;
+            appState.results = null;
+            updateRunButtonState();
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // ================================================================
+        // BRAIN ANIMATION
+        // ================================================================
+        
+        function initializeBrainAnimation() {
+            const canvas = document.getElementById('brain-canvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+                document.querySelector('.brain-fallback').classList.remove('hidden');
+                return;
+            }
+            
+            canvas.width = canvas.clientWidth;
+            canvas.height = Math.min(400, canvas.clientWidth * 0.8);
+            
+            const particles = [];
+            const particleCount = Math.min(250, Math.floor(canvas.width / 4));
+            
+            // Create brain-shaped particle cloud
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: canvas.width / 2 + (Math.random() - 0.5) * 200,
+                    y: canvas.height / 2 + (Math.random() - 0.5) * 150,
+                    vx: (Math.random() - 0.5) * 2,
+                    vy: (Math.random() - 0.5) * 2,
+                    originalX: 0,
+                    originalY: 0,
+                    radius: 2 + Math.random() * 4,
+                });
+            }
+            
+            // Generate rough brain silhouette
+            particles.forEach((p, i) => {
+                const angle = (i / particles.length) * Math.PI * 2;
+                const radius = 90 + Math.sin(angle * 3) * 20;
+                p.originalX = canvas.width / 2 + Math.cos(angle) * radius;
+                p.originalY = canvas.height / 2 + Math.sin(angle) * radius * 0.8;
+            });
+            
+            let mouseX = canvas.width / 2;
+            let mouseY = canvas.height / 2;
+            const mouseRadius = 100;
+            
+            canvas.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX - canvas.getBoundingClientRect().left;
+                mouseY = e.clientY - canvas.getBoundingClientRect().top;
+            });
+            
+            function animate() {
+                // Clear
+                ctx.fillStyle = '#f8f9fa';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Update particles
+                particles.forEach(p => {
+                    const dx = mouseX - p.x;
+                    const dy = mouseY - p.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < mouseRadius) {
+                        // Repel from mouse
+                        const angle = Math.atan2(dy, dx);
+                        p.vx -= Math.cos(angle) * 0.5;
+                        p.vy -= Math.sin(angle) * 0.5;
+                    } else {
+                        // Attract to original position
+                        p.vx += (p.originalX - p.x) * 0.005;
+                        p.vy += (p.originalY - p.y) * 0.005;
+                    }
+                    
+                    // Damping
+                    p.vx *= 0.95;
+                    p.vy *= 0.95;
+                    
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    
+                    // Draw
+                    ctx.fillStyle = 'rgba(45, 154, 150, 0.7)';
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
+        
+        // ================================================================
+        // START APP
+        // ================================================================
+        
+        window.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>

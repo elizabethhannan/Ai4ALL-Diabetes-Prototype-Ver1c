@@ -1,0 +1,11 @@
+entrypoint = "app.py"
+modules = ["python-3.10"]
+
+[deployment]
+run = ["python", "-m", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+
+[packager]
+language = "python3"
+
+[packager.features]
+guessImports = true
