@@ -14,14 +14,14 @@ interface Particle {
 
 const CONFIG = {
   particleCount: 280,
-  particleRadius: 3,
+  particleRadius: 3.5,
   particleRadiusVariance: 2.5,
   particleColor: '#34d399',
-  particleOpacity: 0.75,
-  damping: 0.95,
-  repelForce: 0.5,
+  particleOpacity: 0.85,
+  damping: 0.92,
+  repelForce: 0.6,
   attractForce: 0.012,
-  repelRadius: 110,
+  repelRadius: 120,
 }
 
 function generateBrainShape(centerX: number, centerY: number, w: number, h: number): { x: number; y: number }[] {
@@ -29,12 +29,20 @@ function generateBrainShape(centerX: number, centerY: number, w: number, h: numb
   const scale = Math.min(w, h) / 340
   for (let i = 0; i < CONFIG.particleCount; i++) {
     const angle = (i / CONFIG.particleCount) * Math.PI * 2
-    const baseRadius = scale * (90 + Math.sin(angle * 3) * 25 + Math.sin(angle * 2) * 15)
-    const x = centerX + Math.cos(angle) * baseRadius
-    const y = centerY + Math.sin(angle) * baseRadius * 0.75
+
+    // Two-lobe brain shape with convolutions (v2)
+    const lobeInfluence = Math.cos(angle * 2)
+    const convolution = Math.sin(angle * 6) * 8
+    const heightVariation = Math.sin(angle * 3) * 15
+    const baseRadius = 85 + convolution + (lobeInfluence > 0 ? 5 : 0)
+    const radius = (baseRadius + heightVariation) * scale
+
+    const x = centerX + Math.cos(angle) * radius
+    const y = centerY + Math.sin(angle) * radius * 0.75
+
     points.push({
-      x: x + (Math.random() - 0.5) * 18,
-      y: y + (Math.random() - 0.5) * 18,
+      x: x + (Math.random() - 0.5) * 15,
+      y: y + (Math.random() - 0.5) * 15,
     })
   }
   return points
