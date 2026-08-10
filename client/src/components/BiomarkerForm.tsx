@@ -4,6 +4,23 @@ import './BiomarkerForm.css'
 
 const DOMAIN_ORDER = ['Glycemic', 'Cardiovascular', 'Inflammation', 'Cerebrovascular', 'Body Composition']
 
+const CLINICAL_ROLES: Record<string, string> = {
+  fasting_glucose_mg_dl:                  'Strongest single predictor; glucose dysregulation drives cognitive decline',
+  glucose_mg_dl:                          'Confirms glycemic signal; acute glucose level independent of fasting',
+  global_vasoreactivity:                  'Measures cerebral endothelial response; core CDED marker',
+  daytime_sbp:                            'Elevated BP during activity; vascular stress indicator',
+  wmh_registered:                         'MRI marker of diabetic small-vessel disease',
+  perfusion_whole_brain_baseline_whole:   'Cerebral blood flow; low perfusion correlates with impairment',
+  svcam_ng_ml:                            'Endothelial dysfunction marker; systemic inflammation',
+  ldl_calc_mg_dl:                         'Lipid burden; atherosclerotic vascular disease',
+  nighttime_sbp:                          'Non-dipping nocturnal BP; cerebrovascular risk',
+  mass_kg:                                'Metabolic burden; insulin resistance correlate',
+  perfusion_lepto_pca_baseline_whole:     'Posterior cerebral artery perfusion; region-specific',
+  wmh_registered_masked:                  'Independent WMH replication',
+  hba1c_percent:                          'Long-term glycemic control',
+  diabetes_duration:                      'Cumulative vascular exposure',
+}
+
 interface Props {
   features: FeatureMeta[]
   stats: Record<string, FeatureStats>
@@ -98,7 +115,12 @@ function FeatureRow({ feature, stat, value, onChange }: RowProps) {
     <div className={`feature-row ${atRisk ? 'feature-row--risk' : ''}`}>
       <div className="feature-row-top">
         <div className="feature-label-group">
-          <span className="feature-label">{feature.label}</span>
+          <span className="feature-label-wrap">
+            <span className="feature-label">{feature.label}</span>
+            {CLINICAL_ROLES[feature.key] && (
+              <span className="feature-tooltip">{CLINICAL_ROLES[feature.key]}</span>
+            )}
+          </span>
           <button
             className="info-btn"
             onClick={() => setShowInfo(p => !p)}

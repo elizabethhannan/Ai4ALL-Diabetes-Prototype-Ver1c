@@ -103,6 +103,14 @@
   min-width: 0;
 }
 
+/* Tooltip wrapper around each feature label */
+.feature-label-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: default;
+}
+
 .feature-label {
   font-size: 13px;
   font-weight: 500;
@@ -110,6 +118,40 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  border-bottom: 1px dotted rgba(148, 163, 184, 0.4);
+}
+
+.feature-tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  z-index: 200;
+  width: 220px;
+  background: #0f172a;
+  border: 1px solid #34d399;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #e2e8f0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  white-space: normal;
+}
+
+/* Arrow pointing down */
+.feature-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 14px;
+  border: 5px solid transparent;
+  border-top-color: #34d399;
+}
+
+.feature-label-wrap:hover .feature-tooltip {
+  display: block;
 }
 
 .info-btn {
