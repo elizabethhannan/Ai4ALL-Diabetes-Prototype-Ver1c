@@ -1,124 +1,183 @@
+/**
+ * GE-79 MCI Explorer — D3.js Brain Animation with Brain Shape
+ * Ported from brain-animation-shaped.js to a React/TypeScript component.
+ *
+ * Features:
+ * - Circles positioned to form realistic brain shape (cerebrum + cerebellum)
+ * - D3 force simulation for organic clustering
+ * - Canvas rendering (high performance)
+ * - Mouse interaction via central attractor node
+ */
+
 import { useRef, useEffect } from 'react'
+import * as d3 from 'd3'
 import './BrainAnimation.css'
 
-// ── Fixed canvas coordinate space ─────────────────────
-const W = 680
-const H = 220
-
-interface Particle {
-  x: number; y: number
-  vx: number; vy: number
-  ox: number; oy: number
-  r: number
-}
-
+// ── Config ────────────────────────────────────────────────────────────────────
 const CFG = {
-  count: 1200,
-  minR: 3,
-  maxR: 5.5,
-  color: '52, 211, 153',
-  opacity: 0.80,
-  damping: 0.91,
-  repel: 0.70,
-  attract: 0.013,
-  repelRadius: 110,
+  width: 800,
+  height: 500,
+  particleCount: 200,
+  alphaTarget: 0.3,
+  velocityDecay: 0.1,
+  collideIterations: 3,
+  chargeStrength: 800,   // positive here; attractor gets negated below
 }
 
-// Brain silhouette in normalised coords [-1, 1] × [-1, 1]
-function insideBrain(nx: number, ny: number): boolean {
-  // Wide, slightly flattened ellipse — the brain mass
-  return (nx / 0.88) ** 2 + (ny / 0.80) ** 2 <= 1
+interface Node extends d3.SimulationNodeDatum {
+  id: number
+  r: number
+  group: number   // 0 = attractor, 1 = cerebrum, 2 = cerebellum
 }
 
-function buildParticles(cx: number, cy: number, scale: number): Particle[] {
-  const pts: Particle[] = []
-  let attempts = 0
-  while (pts.length < CFG.count && attempts < 60_000) {
-    attempts++
-    const nx = (Math.random() - 0.5) * 2   // [-1, 1]
-    const ny = (Math.random() - 0.5) * 2   // [-1, 1]
-    if (insideBrain(nx, ny)) {
-      const x = cx + nx * scale
-      const y = cy + ny * scale
-      pts.push({
-        x, y, vx: 0, vy: 0, ox: x, oy: y,
-        r: CFG.minR + Math.random() * (CFG.maxR - CFG.minR),
-      })
-    }
+// ── Particle generation ───────────────────────────────────────────────────────
+function generateBrainParticles(count: number): Node[] {
+  const particles: Node[] = []
+
+  // Node 0: invisible central attractor for mouse control
+  particles.push({ id: 0, r: 1, group: 0, x: 0, y: 0, vx: 0, vy: 0 })
+
+  let idx = 1
+
+  // CEREBRUM (~85 % of particles)
+  const cerebrumCount = Math.floor(count * 0.85)
+  for (let i = 0; i < cerebrumCount && idx < count; i++) {
+    const angle = (i / cerebrumCount) * Math.PI * 2
+
+    const noise1 = Math.sin(angle * 4) * 30
+    const noise2 = Math.sin(angle * 8) * 15
+    const noise3 = Math.cos(angle * 2) * 20
+    const verticalTaper = Math.sin(angle * 3) * 10
+
+    const radius = 110 + noise1 + noise2 + noise3 + verticalTaper
+    const x = Math.cos(angle) * radius + (Math.random() - 0.5) * 20
+    const y = Math.sin(angle) * radius * 0.8 - 40 + (Math.random() - 0.5) * 20
+
+    const sv = Math.random()
+    const r = sv < 0.2 ? 7 + Math.random() * 3
+             : sv < 0.6 ? 4 + Math.random() * 2.5
+             :             2 + Math.random() * 2
+
+    particles.push({ id: idx++, r, group: 1, x, y, vx: 0, vy: 0 })
   }
-  return pts
+
+  // CEREBELLUM (remaining particles — small lobe below)
+  const cerebellumCount = count - idx
+  for (let i = 0; i < cerebellumCount && idx < count; i++) {
+    const angle = (i / cerebellumCount) * Math.PI * 2
+    const wrinkles = Math.sin(angle * 10) * 5
+    const radius = 45 + wrinkles
+    const x = Math.cos(angle) * radius * 0.95 + (Math.random() - 0.5) * 12
+    const y = Math.sin(angle) * radius * 0.9 + 120 + (Math.random() - 0.5) * 12
+    const r = 3 + Math.random() * 2
+    particles.push({ id: idx++, r, group: 2, x, y, vx: 0, vy: 0 })
+  }
+
+  return particles
 }
 
+// ── Component ─────────────────────────────────────────────────────────────────
 export function BrainAnimation() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
+    const container = containerRef.current
+    if (!container) return
 
-    // Use fixed coordinate space — avoids layout-timing issues
-    canvas.width  = W
-    canvas.height = H
+    const { width, height } = CFG
+
+    // Build canvas
+    const canvas = document.createElement('canvas')
+    canvas.width  = width
+    canvas.height = height
+    canvas.style.display = 'block'
+    canvas.style.width   = '100%'
+    canvas.style.height  = 'auto'
+    container.appendChild(canvas)
 
     const ctx = canvas.getContext('2d')!
-    const cx = W / 2          // 340
-    const cy = H / 2          // 110
-    // Scale: brain fills ~88 % of height
-    const scale = H * 0.43    // ≈ 94.6 px → ellipse 166 × 151 px
+    const nodes = generateBrainParticles(CFG.particleCount)
 
-    const particles = buildParticles(cx, cy, scale)
+    // Force simulation
+    const simulation = d3.forceSimulation<Node>(nodes)
+      .alphaTarget(CFG.alphaTarget)
+      .velocityDecay(CFG.velocityDecay)
+      .force('x', d3.forceX<Node>().strength(0.01))
+      .force('y', d3.forceY<Node>().strength(0.01))
+      .force('collide', d3.forceCollide<Node>().radius(d => d.r + 1.5).iterations(CFG.collideIterations))
+      .force('charge', d3.forceManyBody<Node>().strength((_d, i) =>
+        i === 0 ? -CFG.chargeStrength : 0
+      ))
+      .on('tick', ticked)
 
-    // Mouse starts far off-canvas — nothing gets repelled until user hovers
-    let mouseX = -9999
-    let mouseY = -9999
-    let animId: number
+    // Mouse interaction
+    function pointermoved(event: MouseEvent) {
+      const rect = canvas.getBoundingClientRect()
+      // Map CSS pixels → simulation coordinate space (origin at centre)
+      const scaleX = width  / rect.width
+      const scaleY = height / rect.height
+      const x = (event.clientX - rect.left) * scaleX - width  / 2
+      const y = (event.clientY - rect.top)  * scaleY - height / 2
 
-    const toCanvasCoords = (e: MouseEvent) => {
-      const r   = canvas.getBoundingClientRect()
-      const scX = W / r.width   // coordinate → CSS-pixel ratio
-      const scY = H / r.height
-      mouseX = (e.clientX - r.left) * scX
-      mouseY = (e.clientY - r.top)  * scY
+      const padding = 80
+      if (nodes[0]) {
+        nodes[0].fx = Math.max(-width  / 2 + padding, Math.min(width  / 2 - padding, x))
+        nodes[0].fy = Math.max(-height / 2 + padding, Math.min(height / 2 - padding, y))
+      }
     }
-    canvas.addEventListener('mousemove', toCanvasCoords)
-    canvas.addEventListener('mouseleave', () => { mouseX = cx; mouseY = cy })
 
-    function tick() {
-      ctx.clearRect(0, 0, W, H)
+    function pointerleave() {
+      if (nodes[0]) { nodes[0].fx = null; nodes[0].fy = null }
+    }
 
-      for (const p of particles) {
-        // Repel
-        const dx   = p.x - mouseX
-        const dy   = p.y - mouseY
-        const dist = Math.sqrt(dx * dx + dy * dy)
-        if (dist < CFG.repelRadius && dist > 0) {
-          const f = CFG.repel * (1 - dist / CFG.repelRadius)
-          p.vx += (dx / dist) * f
-          p.vy += (dy / dist) * f
-        }
-        // Spring home
-        p.vx += (p.ox - p.x) * CFG.attract
-        p.vy += (p.oy - p.y) * CFG.attract
-        // Damping
-        p.vx *= CFG.damping
-        p.vy *= CFG.damping
-        p.x  += p.vx
-        p.y  += p.vy
+    canvas.addEventListener('mousemove', pointermoved)
+    canvas.addEventListener('mouseleave', pointerleave)
+    canvas.addEventListener('touchmove', e => e.preventDefault(), { passive: false })
 
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(${CFG.color},${CFG.opacity})`
-        ctx.fill()
+    function ticked() {
+      // Hard boundary clamp
+      const maxR = Math.max(...nodes.slice(1).map(d => d.r)) + 5
+      const bx = width  / 2 - maxR
+      const by = height / 2 - maxR
+
+      for (let i = 1; i < nodes.length; i++) {
+        const d = nodes[i]
+        if ((d.x ?? 0) - d.r < -bx) d.x = -bx + d.r
+        if ((d.x ?? 0) + d.r >  bx) d.x =  bx - d.r
+        if ((d.y ?? 0) - d.r < -by) d.y = -by + d.r
+        if ((d.y ?? 0) + d.r >  by) d.y =  by - d.r
       }
 
-      animId = requestAnimationFrame(tick)
+      ctx.clearRect(0, 0, width, height)
+      ctx.save()
+      ctx.translate(width / 2, height / 2)
+
+      for (let i = 1; i < nodes.length; i++) {
+        const d = nodes[i]
+        ctx.beginPath()
+        ctx.moveTo((d.x ?? 0) + d.r, d.y ?? 0)
+        ctx.arc(d.x ?? 0, d.y ?? 0, d.r, 0, Math.PI * 2)
+
+        ctx.fillStyle = d.r > 6 ? '#2d9a96'
+                      : d.r > 3.5 ? '#1f8a8a'
+                      :              '#166b6b'
+        ctx.globalAlpha = 0.85
+        ctx.fill()
+
+        ctx.strokeStyle = 'rgba(0,0,0,0.1)'
+        ctx.lineWidth = 0.5
+        ctx.stroke()
+      }
+
+      ctx.restore()
+      ctx.globalAlpha = 1.0
     }
 
-    tick()
-
     return () => {
-      cancelAnimationFrame(animId)
-      canvas.removeEventListener('mousemove', toCanvasCoords)
+      simulation.stop()
+      canvas.removeEventListener('mousemove', pointermoved)
+      canvas.removeEventListener('mouseleave', pointerleave)
+      container.removeChild(canvas)
     }
   }, [])
 
@@ -128,7 +187,7 @@ export function BrainAnimation() {
         <span className="brain-anim-title">Neural Pattern Visualizer</span>
         <span className="brain-anim-hint">Move cursor over to interact</span>
       </div>
-      <canvas ref={canvasRef} className="brain-anim-canvas" />
+      <div ref={containerRef} className="brain-anim-canvas-container" />
     </div>
   )
 }
