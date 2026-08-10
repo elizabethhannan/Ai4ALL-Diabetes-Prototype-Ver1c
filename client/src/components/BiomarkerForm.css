@@ -21,7 +21,7 @@
 
 .bio-form-hint {
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--text-dim);
 }
 
 /* ── Domain group ──────────────────────────────── */
@@ -62,13 +62,13 @@
   border-radius: 10px;
   padding: 1px 7px;
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--text-dim);
 }
 
 .domain-chevron {
-  font-size: 11px;
-  color: var(--text-muted);
-  width: 12px;
+  font-size: 13px;
+  color: var(--text-dim);
+  width: 14px;
   text-align: center;
 }
 
@@ -131,7 +131,7 @@
 
 .feature-info {
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--text-dim);
   line-height: 1.5;
   padding: 4px 0 6px;
   font-style: italic;
@@ -146,7 +146,7 @@
 
 .feature-unit {
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--text-dim);
   white-space: nowrap;
 }
 
@@ -155,14 +155,14 @@
   align-items: center;
   gap: 4px;
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--text-dim);
   cursor: pointer;
 }
 .missing-label input { cursor: pointer; accent-color: var(--accent); }
 
 .missing-note {
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--text-dim);
   font-style: italic;
   margin-top: 4px;
 }

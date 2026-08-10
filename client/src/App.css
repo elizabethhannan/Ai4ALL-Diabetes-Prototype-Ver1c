@@ -415,3 +415,56 @@
   font-style: italic;
   color: var(--text-dim);
 }
+
+/* ── Footer row 2 — team QR cards ────────────────────── */
+.footer-row2 {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  border-top: 1px solid rgba(52, 211, 153, 0.2);
+  padding: 12px 24px;
+}
+
+.footer2-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-right: 1px solid rgba(52, 211, 153, 0.15);
+  text-align: center;
+}
+.footer2-card:last-child { border-right: none; }
+
+.footer2-qr {
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  border-radius: 4px;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.footer2-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: center;
+}
+
+.footer2-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.footer2-role {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.footer2-www {
+  font-size: 11px;
+  color: #34d399;
+  text-decoration: none;
+  word-break: break-all;
+}
+.footer2-www:hover { text-decoration: underline; }

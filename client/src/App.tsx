@@ -251,6 +251,44 @@ export default function App() {
             </div>
           </div>
         </div>
+
+        {/* Second footer row — team / contributor QR cards */}
+        <div className="footer-row2">
+          {[
+            { name: 'Elizabeth Hannan', role: 'Author · Group 6C', www: 'linkedin.com/in/elizabethhannan' },
+            { name: 'Agastyya Kola',    role: 'Author · Group 6C', www: 'linkedin.com/in/agastyyakola' },
+            { name: 'Team Member',      role: 'Contributor',        www: 'www.example.com' },
+            { name: 'Team Member',      role: 'Contributor',        www: 'www.example.com' },
+            { name: 'Team Member',      role: 'Contributor',        www: 'www.example.com' },
+            { name: 'Team Member',      role: 'Contributor',        www: 'www.example.com' },
+          ].map((person, i) => (
+            <div key={i} className="footer2-card">
+              {/* QR placeholder */}
+              <div className="footer2-qr">
+                <svg viewBox="0 0 32 32" width="48" height="48">
+                  <rect width="32" height="32" fill="#111" rx="3"/>
+                  <rect x="2" y="2" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
+                  <rect x="5" y="5" width="6" height="6" fill="#34d399"/>
+                  <rect x="18" y="2" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
+                  <rect x="21" y="5" width="6" height="6" fill="#34d399"/>
+                  <rect x="2" y="18" width="12" height="12" fill="none" stroke="#34d399" strokeWidth="1.5"/>
+                  <rect x="5" y="21" width="6" height="6" fill="#34d399"/>
+                  <rect x="18" y="18" width="4" height="4" fill="#34d399"/>
+                  <rect x="24" y="18" width="4" height="4" fill="#34d399"/>
+                  <rect x="18" y="24" width="4" height="4" fill="#34d399"/>
+                  <rect x="24" y="24" width="4" height="4" fill="#34d399"/>
+                </svg>
+              </div>
+              <div className="footer2-info">
+                <span className="footer2-name">{person.name}</span>
+                <span className="footer2-role">{person.role}</span>
+                <a className="footer2-www" href={`https://${person.www}`} target="_blank" rel="noreferrer">
+                  {person.www}
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
       </footer>
     </div>
   )
