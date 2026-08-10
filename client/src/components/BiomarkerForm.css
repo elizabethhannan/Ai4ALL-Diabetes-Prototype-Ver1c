@@ -41,8 +41,6 @@
   font-size: 13px;
   font-weight: 700;
   text-align: left;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
   transition: background 0.15s;
 }
 
@@ -183,9 +181,14 @@
   position: absolute;
   top: 0;
   height: 100%;
-  background: #34d399;
-  border-radius: 2px;
-  opacity: 0.75;
+  background: repeating-linear-gradient(
+    to right,
+    #34d399 0px,
+    #34d399 5px,
+    transparent 5px,
+    transparent 9px
+  );
+  opacity: 0.9;
 }
 
 .slider-refs {
