@@ -4,6 +4,7 @@ import { BiomarkerForm } from './components/BiomarkerForm'
 import { PredictionPanel } from './components/PredictionPanel'
 import { ModelMetricsPanel } from './components/ModelMetricsPanel'
 import { RadarChart } from './components/RadarChart'
+import { BrainAnimation } from './components/BrainAnimation'
 import './index.css'
 import './App.css'
 
@@ -179,6 +180,7 @@ export default function App() {
 
             {/* Right: results */}
             <section className="results-section">
+              <BrainAnimation />
               <RadarChart
                 features={featuresData.features}
                 stats={featuresData.stats}

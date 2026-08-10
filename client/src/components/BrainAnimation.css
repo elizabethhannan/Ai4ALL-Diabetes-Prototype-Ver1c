@@ -1,0 +1,37 @@
+.brain-anim-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  overflow: hidden;
+}
+
+.brain-anim-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.brain-anim-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.brain-anim-hint {
+  font-size: 10px;
+  color: #34d399;
+  opacity: 0.7;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.brain-anim-canvas {
+  width: 100%;
+  line-height: 0;
+}
+
+.brain-anim-canvas svg {
+  width: 100% !important;
+}
