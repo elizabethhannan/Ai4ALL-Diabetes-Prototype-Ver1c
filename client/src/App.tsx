@@ -258,7 +258,7 @@ export default function App() {
             { name: 'Elizabeth Hannan',       role: 'Author · Group 6C',      www: 'tinyurl.com/LinkedinEHannan',            qrImg: '/elizabeth-qr.png' },
             { name: 'Agastyya Kola',          role: 'Author · Group 6C',      www: 'tinyurl.com/Linkedin-Agastyya-Kala',     qrImg: '/agastyya-qr.png' },
             { name: 'ML Visualizations App',  role: 'Streamlit App',          www: 'tinyurl.com/AI4ALL-Streamlit-App',       qrImg: '/streamlit-qr.png' },
-            { name: 'Team Member',            role: 'Contributor',            www: 'www.example.com',                        qrImg: null },
+            { name: 'Group 6C Presentation',  role: 'Slide Deck',             www: 'tinyurl.com/AI4ALL-Group6C-Presentation', qrImg: '/presentation-qr.png' },
             { name: 'Team Member',            role: 'Contributor',            www: 'www.example.com',                        qrImg: null },
             { name: 'Team Member',            role: 'Contributor',            www: 'www.example.com',                        qrImg: null },
           ] as { name: string; role: string; www: string; qrImg: string | null }[]).map((person, i) => (
