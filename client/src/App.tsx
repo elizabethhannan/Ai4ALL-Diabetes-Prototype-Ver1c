@@ -256,7 +256,7 @@ export default function App() {
         <div className="footer-row2">
           {([
             { name: 'Elizabeth Hannan',       role: 'Author · Group 6C',      www: 'linkedin.com/in/elizabethhannan',        qrImg: null },
-            { name: 'Agastyya Kola',          role: 'Author · Group 6C',      www: 'linkedin.com/in/agastyyakola',           qrImg: null },
+            { name: 'Agastyya Kola',          role: 'Author · Group 6C',      www: 'tinyurl.com/Linkedin-Agastyya-Kala',     qrImg: '/agastyya-qr.png' },
             { name: 'ML Visualizations App',  role: 'Streamlit App',          www: 'tinyurl.com/AI4ALL-Streamlit-App',       qrImg: '/streamlit-qr.png' },
             { name: 'Team Member',            role: 'Contributor',            www: 'www.example.com',                        qrImg: null },
             { name: 'Team Member',            role: 'Contributor',            www: 'www.example.com',                        qrImg: null },
