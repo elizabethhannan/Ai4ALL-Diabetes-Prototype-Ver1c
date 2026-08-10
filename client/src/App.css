@@ -197,6 +197,7 @@
 
 /* ── Footer ──────────────────────────────────────────── */
 .app-footer {
+  background: var(--surface);
   border-top: 1px solid var(--border);
   padding: 12px 24px;
   text-align: center;
