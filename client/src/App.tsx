@@ -236,7 +236,7 @@ export default function App() {
             { name: 'ML Visualizations App',  role: 'Streamlit App',          www: 'tinyurl.com/AI4ALL-Streamlit-App',       qrImg: '/streamlit-qr.png' },
             { name: 'Group 6C Presentation',  role: 'Slide Deck',             www: 'tinyurl.com/AI4ALL-Group6C-Presentation', qrImg: '/presentation-qr.png' },
             { name: 'Prototype App',           role: 'GE-79 MCI Explorer',     www: 'tinyurl.com/AI4ALL-Prototype',           qrImg: '/prototype-qr.png' },
-            { name: 'Agastyya Kola',          role: 'Co-Author · Group 6C',   www: 'tinyurl.com/Linkedin-Agastyya-Kala',     qrImg: '/agastyya-qr.png' },
+            { name: 'Group 6C Poster',         role: 'Research Poster',        www: 'tinyurl.com/AI4ALL-Group6C-Poster',       qrImg: null },
           ] as { name: string; role: string; www: string; qrImg: string | null }[]).map((person, i) => (
             <div key={i} className="footer2-card">
               <div className="footer2-qr">
