@@ -386,8 +386,14 @@ def serve_react(path):
     if CLIENT_DIST.exists():
         target = CLIENT_DIST / path
         if path and target.exists():
-            return send_from_directory(str(CLIENT_DIST), path)
-        return send_from_directory(str(CLIENT_DIST), "index.html")
+            resp = send_from_directory(str(CLIENT_DIST), path)
+        else:
+            resp = send_from_directory(str(CLIENT_DIST), "index.html")
+        # Prevent browser caching so updates are always visible immediately
+        resp.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+        resp.headers["Pragma"] = "no-cache"
+        resp.headers["Expires"] = "0"
+        return resp
     return jsonify({"status": "API running — React build not found. Run: cd client && npm run build"}), 200
 
 
