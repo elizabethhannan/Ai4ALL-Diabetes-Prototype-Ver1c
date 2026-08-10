@@ -187,7 +187,13 @@ export function BrainAnimation() {
         <span className="brain-anim-title">Neural Pattern Visualizer</span>
         <span className="brain-anim-hint">Move cursor over to interact</span>
       </div>
-      <div ref={containerRef} className="brain-anim-canvas-container" />
+      <div ref={containerRef} className="brain-anim-canvas-container">
+        <img
+          src="/brain-head.png"
+          alt=""
+          className="brain-anim-overlay"
+        />
+      </div>
     </div>
   )
 }

@@ -29,6 +29,7 @@
 
 .brain-anim-canvas-container {
   display: block;
+  position: relative;
   width: 100%;
   cursor: crosshair;
 }
@@ -37,4 +38,24 @@
   display: block;
   width: 100% !important;
   height: auto !important;
+}
+
+/* Brain head overlay — sits in front of the D3 dots */
+.brain-anim-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  /* White outline: spread drop-shadows around every opaque pixel edge */
+  filter:
+    drop-shadow( 1px  0px 0px white)
+    drop-shadow(-1px  0px 0px white)
+    drop-shadow( 0px  1px 0px white)
+    drop-shadow( 0px -1px 0px white)
+    drop-shadow( 1px  1px 0px white)
+    drop-shadow(-1px  1px 0px white)
+    drop-shadow( 1px -1px 0px white)
+    drop-shadow(-1px -1px 0px white);
 }
