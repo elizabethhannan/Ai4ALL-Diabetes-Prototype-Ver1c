@@ -7,55 +7,71 @@
 /* ── Consensus ─────────────────────────────────── */
 .consensus {
   border-radius: var(--radius);
-  padding: 16px 20px;
+  padding: 20px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  border: 1px solid;
+  gap: 16px;
+  border: 2px solid;
+  background: #ffffff;
+  flex-wrap: wrap;
 }
 
-.consensus--normal {
-  background: rgba(52, 211, 153, 0.08);
-  border-color: rgba(52, 211, 153, 0.25);
-}
-
-.consensus--impaired {
-  background: rgba(248, 113, 113, 0.08);
-  border-color: rgba(248, 113, 113, 0.3);
-}
+.consensus--normal  { border-color: #16a34a; }
+.consensus--impaired { border-color: #dc2626; }
 
 .consensus-label {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  color: #374151;
+  flex-shrink: 0;
+}
+
+.consensus-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
 }
 
 .consensus-result {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
+/* Icon — 2x from original 20px = 40px, colored */
 .consensus-icon {
-  font-size: 20px;
+  font-size: 40px;
+  line-height: 1;
 }
+.consensus--impaired .consensus-icon { color: #fbbf24; /* bright yellow */ }
+.consensus--normal   .consensus-icon { color: #16a34a; /* bright green  */ }
 
 .consensus-text {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text);
+  font-size: 24px;
+  font-weight: 800;
+  color: #374151;
 }
+.consensus--impaired .consensus-text { color: #dc2626; }
+.consensus--normal   .consensus-text { color: #16a34a; }
 
-.consensus--impaired .consensus-text { color: var(--red); }
-.consensus--normal .consensus-text { color: var(--green); }
+.consensus-definition {
+  font-size: 11px;
+  color: #6b7280;
+  font-style: italic;
+  text-align: center;
+}
 
 .consensus-votes {
   font-size: 12px;
-  color: var(--text-muted);
+  font-weight: 600;
+  color: #374151;
   text-align: right;
+  flex-shrink: 0;
 }
 
 /* ── Per-model cards ───────────────────────────── */
@@ -84,6 +100,7 @@
   justify-content: space-between;
   margin-bottom: 12px;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .pred-model-name {
@@ -93,7 +110,7 @@
 
 .pred-model-subtitle {
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--text-dim);
   margin-top: 2px;
 }
 
@@ -128,17 +145,19 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .prob-label {
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--text-dim);
   width: 100px;
   flex-shrink: 0;
 }
 
 .prob-bar-wrap {
   flex: 1;
+  min-width: 60px;
   height: 6px;
   background: var(--border);
   border-radius: 3px;
@@ -151,8 +170,8 @@
   transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.prob-bar--normal { background: var(--green); }
-.prob-bar--impaired { background: var(--red); }
+.prob-bar--normal   { background: var(--green); }
+.prob-bar--impaired { background: var(--red);   }
 
 .prob-pct {
   font-size: 12px;
@@ -165,7 +184,7 @@
 /* ── Disclaimer ────────────────────────────────── */
 .pred-disclaimer {
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--text-dim);
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);

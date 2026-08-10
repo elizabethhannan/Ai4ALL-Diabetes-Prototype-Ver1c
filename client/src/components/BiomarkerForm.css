@@ -173,8 +173,8 @@
 .slider-refs {
   display: flex;
   justify-content: space-between;
-  font-size: 10px;
-  color: var(--text-muted);
+  font-size: 11px;
+  color: var(--text-dim);
   margin-top: 2px;
 }
 

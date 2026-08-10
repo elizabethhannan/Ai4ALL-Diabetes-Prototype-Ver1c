@@ -72,7 +72,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 4px;
   text-align: center;
-  font-size: 10px;
+  font-size: 11px;
   color: #ffffff;
   padding: 0 0 4px;
 }
@@ -84,7 +84,7 @@
 }
 
 .conf-row-axis {
-  font-size: 10px;
+  font-size: 11px;
   color: #ffffff;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
@@ -97,7 +97,7 @@
 }
 
 .conf-row-labels span {
-  font-size: 10px;
+  font-size: 11px;
   color: #ffffff;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
@@ -126,7 +126,7 @@
 
 .conf-cell-value { font-size: 22px; font-weight: 700; color: var(--text); }
 .conf-cell-pct   { font-size: 11px; color: #ffffff; }
-.conf-cell-label { font-size: 10px; color: #ffffff; margin-top: 2px; }
+.conf-cell-label { font-size: 11px; color: #ffffff; margin-top: 2px; }
 
 /* ── Table ─────────────────────────────────────── */
 .metrics-table-wrap {

@@ -357,7 +357,7 @@
 
 .footer-col-title {
   display: block;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   color: #34d399;
   letter-spacing: 0.06em;
@@ -366,8 +366,8 @@
 }
 
 .footer-col-body {
-  font-size: 10px;
-  color: var(--text-muted);
+  font-size: 11px;
+  color: var(--text-dim);
   line-height: 1.5;
   font-weight: 500;
 }

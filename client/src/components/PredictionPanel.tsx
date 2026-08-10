@@ -31,11 +31,18 @@ export function PredictionPanel({ prediction }: Props) {
       {/* Consensus banner */}
       <div className={`consensus ${impaired > noImpairment ? 'consensus--impaired' : 'consensus--normal'}`}>
         <div className="consensus-label">Model Consensus</div>
-        <div className="consensus-result">
-          <span className="consensus-icon">
-            {impaired > noImpairment ? '⚠' : '✓'}
-          </span>
-          <span className="consensus-text">{consensusLabel}</span>
+        <div className="consensus-center">
+          <div className="consensus-result">
+            <span className="consensus-icon">
+              {impaired > noImpairment ? '⚠' : '✓'}
+            </span>
+            <span className="consensus-text">{consensusLabel}</span>
+          </div>
+          <div className="consensus-definition">
+            {impaired > noImpairment
+              ? 'Mild or moderately impaired based on biomarker profile'
+              : 'Not mild or moderately impaired based on biomarker profile'}
+          </div>
         </div>
         <div className="consensus-votes">
           {consensusStrength} of {MODEL_ORDER.length} models agree
