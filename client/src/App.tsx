@@ -78,8 +78,9 @@ export default function App() {
             </div>
           </div>
 
-          {/* Center — title + research question */}
+          {/* Center — research question (top/big) + GE-79 subtitle */}
           <div className="header-center">
+            <p className="header-research-q"><span className="research-q-label">Research Question:</span> Can supervised machine learning classify Mild Cognitive Impairment in older adults with Type 2 Diabetes?</p>
             <div className="header-title-row">
               <h1 className="header-title">GE-79 MCI Explorer</h1>
               <div className="header-badge">
@@ -87,7 +88,6 @@ export default function App() {
                 Research Only · Not Diagnostic
               </div>
             </div>
-            <p className="header-research-q">Can supervised machine learning classify Mild Cognitive Impairment in older adults with Type 2 Diabetes?</p>
           </div>
 
           {/* Right — authors */}

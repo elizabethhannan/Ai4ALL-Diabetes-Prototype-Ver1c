@@ -125,8 +125,8 @@ export function RadarChart({ features, stats, importance, values }: Props) {
         .attr('y', pt.y)
         .attr('text-anchor', pt.x < cx - 5 ? 'end' : pt.x > cx + 5 ? 'start' : 'middle')
         .attr('dominant-baseline', 'central')
-        .attr('font-size', 10)
-        .attr('fill', '#64748b')
+        .attr('font-size', 11)
+        .attr('fill', '#ffffff')
 
       words.forEach((w, wi) => {
         txt.append('tspan')
