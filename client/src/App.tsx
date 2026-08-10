@@ -15,13 +15,13 @@ export default function App() {
   const [prediction, setPrediction] = useState<PredictResponse | null>(null)
   const [loading, setLoading] = useState(false)
   const [activeTab, setActiveTab] = useState<'predict' | 'metrics'>('predict')
+  const [headerOpen, setHeaderOpen] = useState(false)
 
   useEffect(() => {
     fetch('/api/features')
       .then(r => r.json())
       .then((data: FeaturesResponse) => {
         setFeaturesData(data)
-        // seed inputs with cohort medians
         const defaults: Record<string, number | null> = {}
         data.features.forEach(f => {
           defaults[f.key] = data.stats[f.key]?.median ?? null
@@ -78,36 +78,52 @@ export default function App() {
             </div>
           </div>
 
-          {/* Center — research question (top/big) + GE-79 subtitle */}
-          <div className="header-center">
-            <p className="header-research-q"><span className="research-q-label">Research Question:</span> Can supervised machine learning classify Mild Cognitive Impairment in older adults with Type 2 Diabetes?</p>
-            <div className="header-title-row">
-              <h1 className="header-title">GE-79 MCI Explorer</h1>
-              <div className="header-badge">
-                <span className="badge-dot" />
-                Research Only · Not Diagnostic
-              </div>
-            </div>
-          </div>
+          {/* Mobile-only toggle */}
+          <button
+            className="header-toggle"
+            onClick={() => setHeaderOpen(o => !o)}
+            aria-label="Toggle header details"
+          >
+            {headerOpen ? '▲ Close' : '▼ Authors & Info'}
+          </button>
 
-          {/* Right — authors */}
-          <div className="header-right">
-            <div className="header-author">
-              <div className="author-qr">
-                <img src="/elizabeth-qr.png" alt="Elizabeth Hannan LinkedIn QR" width="36" height="36" style={{ display: 'block', borderRadius: 3 }} />
-              </div>
-              <div className="author-info">
-                <span className="author-name">Elizabeth H.</span>
-                <span className="author-link">Author · LinkedIn</span>
+          {/* Expandable: center + right (always visible on desktop, toggled on mobile) */}
+          <div className={`header-expandable${headerOpen ? ' header-expandable--open' : ''}`}>
+            {/* Center — research question */}
+            <div className="header-center">
+              <p className="header-research-q">
+                <span className="research-q-label">Research Question:</span> Can supervised machine learning classify Mild Cognitive Impairment in older adults with Type 2 Diabetes?
+              </p>
+              <div className="header-title-row">
+                <h1 className="header-title">GE-79 MCI Explorer</h1>
+                <div className="header-badge">
+                  <span className="badge-dot" />
+                  Research Only · Not Diagnostic
+                </div>
               </div>
             </div>
-            <div className="header-author">
-              <div className="author-qr">
-                <img src="/agastyya-qr.png" alt="Agastyya Kola LinkedIn QR" width="36" height="36" style={{ display: 'block', borderRadius: 3 }} />
+
+            {/* Right — authors */}
+            <div className="header-right">
+              <div className="header-author">
+                <div className="author-qr">
+                  <img src="/elizabeth-qr.png" alt="Elizabeth Hannan LinkedIn QR" width="36" height="36" style={{ display: 'block', borderRadius: 3 }} />
+                </div>
+                <div className="author-info">
+                  <span className="author-name">Elizabeth H.</span>
+                  <span className="author-link">Author · LinkedIn</span>
+                  <a className="author-www" href="https://tinyurl.com/LinkedinEHannan" target="_blank" rel="noreferrer">tinyurl.com/LinkedinEHannan</a>
+                </div>
               </div>
-              <div className="author-info">
-                <span className="author-name">Agastyya K.</span>
-                <span className="author-link">Author · LinkedIn</span>
+              <div className="header-author">
+                <div className="author-qr">
+                  <img src="/agastyya-qr.png" alt="Agastyya Kola LinkedIn QR" width="36" height="36" style={{ display: 'block', borderRadius: 3 }} />
+                </div>
+                <div className="author-info">
+                  <span className="author-name">Agastyya K.</span>
+                  <span className="author-link">Author · LinkedIn</span>
+                  <a className="author-www" href="https://tinyurl.com/Linkedin-Agastyya-Kala" target="_blank" rel="noreferrer">tinyurl.com/Linkedin-Agastyya-Kala</a>
+                </div>
               </div>
             </div>
           </div>
@@ -136,7 +152,7 @@ export default function App() {
       <main className="app-main">
         {activeTab === 'predict' && featuresData && (
           <div className="predict-layout">
-            {/* Left: instructions + form */}
+            {/* Left: instructions + form + run action */}
             <section className="form-section">
               <div className="instructions-card">
                 <div className="instructions-header">
@@ -154,16 +170,32 @@ export default function App() {
                 values={values}
                 onChange={(key, val) => setValues(prev => ({ ...prev, [key]: val }))}
               />
-              <div className="form-actions">
+
+              {/* Mobile: Run Prediction (2/3) + Brain (1/3) side-by-side */}
+              <div className="mobile-run-brain">
+                <div className="form-actions">
+                  <button className="btn-predict" onClick={handlePredict} disabled={loading}>
+                    {loading ? 'Predicting…' : <><span>Run Prediction</span> <span className="btn-arrow">→</span></>}
+                  </button>
+                </div>
+                <div className="mobile-brain-slot">
+                  <BrainAnimation />
+                </div>
+              </div>
+
+              {/* Desktop: Run Prediction only */}
+              <div className="form-actions desktop-run-action">
                 <button className="btn-predict" onClick={handlePredict} disabled={loading}>
-                  {loading ? 'Predicting…' : 'Run Prediction'}
+                  {loading ? 'Predicting…' : <><span>Run Prediction</span> <span className="btn-arrow">→</span></>}
                 </button>
               </div>
             </section>
 
-            {/* Right: results */}
+            {/* Right: brain (desktop only) + radar + prediction */}
             <section className="results-section">
-              <BrainAnimation />
+              <div className="desktop-brain-slot">
+                <BrainAnimation />
+              </div>
               <RadarChart
                 features={featuresData.features}
                 stats={featuresData.stats}
@@ -202,7 +234,7 @@ export default function App() {
             </svg>
             <div>
               <span className="footer-col-title">AI4ALL SUMMER COHORT 2026</span>
-              <p className="footer-col-body">Building AI for equity. Advancing diversity in science and technology.</p>
+              <p className="footer-col-body">Building with AI safety and AI Ethics awareness.</p>
             </div>
           </div>
           <div className="footer-divider" />
