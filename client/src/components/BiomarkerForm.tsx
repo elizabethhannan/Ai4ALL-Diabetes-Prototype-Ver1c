@@ -150,6 +150,16 @@ function FeatureRow({ feature, stat, value, onChange }: RowProps) {
             onChange={e => onChange(parseFloat(e.target.value))}
             style={{ '--pct': `${pct}%` } as React.CSSProperties}
           />
+          {/* Normal range indicator bar */}
+          <div className="normal-range-track">
+            <div
+              className="normal-range-fill"
+              style={{
+                left: `${Math.max(0, ((feature.reference_low - min) / (max - min)) * 100)}%`,
+                width: `${Math.min(100, ((feature.reference_high - feature.reference_low) / (max - min)) * 100)}%`,
+              }}
+            />
+          </div>
           <div className="slider-refs">
             <span>{min}</span>
             <span className="ref-range">

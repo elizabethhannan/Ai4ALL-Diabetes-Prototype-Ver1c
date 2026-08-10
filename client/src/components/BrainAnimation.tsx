@@ -184,8 +184,7 @@ export function BrainAnimation() {
   return (
     <div className="brain-anim-wrap">
       <div className="brain-anim-header">
-        <span className="brain-anim-title">Neural Pattern Visualizer</span>
-        <span className="brain-anim-hint">Move cursor over to interact</span>
+        <span className="brain-anim-title">Abstract Neural Pattern Visualizer</span>
       </div>
       <div ref={containerRef} className="brain-anim-canvas-container">
         <img

@@ -14,17 +14,9 @@
 }
 
 .brain-anim-title {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--text-muted);
-}
-
-.brain-anim-hint {
-  font-size: 11px;
-  color: #34d399;
-  opacity: 0.7;
-  font-weight: 600;
-  font-style: italic;
+  color: #ffffff;
 }
 
 .brain-anim-canvas-container {

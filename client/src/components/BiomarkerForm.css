@@ -15,12 +15,12 @@
 
 .bio-form-title {
   font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
+  font-weight: 700;
+  color: #ffffff;
 }
 
 .bio-form-hint {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-dim);
 }
 
@@ -37,9 +37,9 @@
   gap: 8px;
   padding: 10px 16px;
   background: transparent;
-  color: var(--text-dim);
-  font-size: 12px;
-  font-weight: 600;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
   text-align: left;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -61,7 +61,7 @@
   background: var(--surface2);
   border-radius: 10px;
   padding: 1px 7px;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-dim);
 }
 
@@ -106,7 +106,7 @@
 }
 
 .feature-label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-dim);
   white-space: nowrap;
@@ -145,7 +145,7 @@
 }
 
 .feature-unit {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-dim);
   white-space: nowrap;
 }
@@ -154,14 +154,14 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-dim);
   cursor: pointer;
 }
 .missing-label input { cursor: pointer; accent-color: var(--accent); }
 
 .missing-note {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-dim);
   font-style: italic;
   margin-top: 4px;
@@ -170,10 +170,28 @@
 /* ── Slider ────────────────────────────────────── */
 .slider-wrap { margin-top: 4px; }
 
+/* Normal range indicator bar — sits between slider and "Normal: X–Y" text */
+.normal-range-track {
+  position: relative;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: 4px 0 2px;
+}
+
+.normal-range-fill {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: #34d399;
+  border-radius: 2px;
+  opacity: 0.75;
+}
+
 .slider-refs {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-dim);
   margin-top: 2px;
 }
