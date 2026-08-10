@@ -294,6 +294,45 @@
 }
 
 /* ── Placeholder ─────────────────────────────────────── */
+/* ── Instructions card (above BiomarkerForm) ─────────── */
+.instructions-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.instructions-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.instructions-icon {
+  font-size: 16px;
+}
+
+.instructions-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #34d399;
+}
+
+.instructions-text {
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+.instructions-text strong {
+  color: var(--text);
+}
+
 .placeholder-card {
   background: var(--surface);
   border: 1px dashed var(--border);

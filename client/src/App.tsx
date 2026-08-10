@@ -160,8 +160,17 @@ export default function App() {
       <main className="app-main">
         {activeTab === 'predict' && featuresData && (
           <div className="predict-layout">
-            {/* Left: form */}
+            {/* Left: instructions + form */}
             <section className="form-section">
+              <div className="instructions-card">
+                <div className="instructions-header">
+                  <span className="instructions-icon">⚡</span>
+                  <span className="instructions-title">Instructions</span>
+                </div>
+                <p className="instructions-text">
+                  Adjust the biomarkers below, then click <strong>Run Prediction</strong> to see outputs from all three classifiers.
+                </p>
+              </div>
               <BiomarkerForm
                 features={featuresData.features}
                 stats={featuresData.stats}
@@ -187,14 +196,6 @@ export default function App() {
               />
               {prediction && (
                 <PredictionPanel prediction={prediction} />
-              )}
-              {!prediction && (
-                <div className="placeholder-card">
-                  <div className="placeholder-icon">⚡</div>
-                  <p className="placeholder-text">
-                    Adjust the biomarkers on the left, then click <strong>Run Prediction</strong> to see outputs from all three classifiers.
-                  </p>
-                </div>
               )}
             </section>
           </div>
