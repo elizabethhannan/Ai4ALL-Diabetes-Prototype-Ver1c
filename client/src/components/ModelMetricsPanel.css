@@ -31,6 +31,19 @@
   padding: 16px;
 }
 
+/* ── "How to read" key banner ──────────────────── */
+.cm-key-banner {
+  background: rgba(52, 211, 153, 0.06);
+  border-left: 3px solid #34d399;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+.cm-key-good { color: #34d399; font-weight: 600; }
+.cm-key-bad  { color: #f87171; font-weight: 600; }
+
 /* ── Confusion matrices ────────────────────────── */
 .confusion-row {
   display: grid;
@@ -42,91 +55,133 @@
   .confusion-row { grid-template-columns: 1fr; }
 }
 
+/* ── Card shell ────────────────────────────────── */
 .confusion-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px;
-  border-top: 2px solid var(--model-color, var(--accent));
+  padding: 16px;
+  border-top: 3px solid var(--model-color, var(--accent));
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.confusion-title {
-  font-size: 12px;
+.cm-rank {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.cm-subtitle {
+  font-size: 17px;
   font-weight: 700;
-  margin-bottom: 12px;
+  color: var(--text);
+  line-height: 1.2;
 }
 
-.confusion-grid {
-  display: grid;
-  grid-template-areas:
-    '. col-labels'
-    'row-label-col cells';
-  grid-template-columns: auto 1fr;
-  gap: 4px;
-}
-
-.conf-axis-label { display: none; }
-
-.conf-col-labels {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4px;
-  text-align: center;
-  font-size: 11px;
-  color: #ffffff;
-  padding: 0 0 4px;
-}
-
-.conf-row-label-col {
+/* ── Legend ────────────────────────────────────── */
+.cm-legend {
   display: flex;
   align-items: center;
-  gap: 4px;
-}
-
-.conf-row-axis {
+  gap: 5px;
   font-size: 11px;
-  color: #ffffff;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
+  color: var(--text-dim);
+}
+.cm-legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.cm-legend-dot--good { background: #bbf7d0; }
+.cm-legend-dot--bad  { background: #fecdd3; }
+
+/* ── Matrix table ──────────────────────────────── */
+.cm-table-wrap { overflow-x: auto; }
+
+.cm-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 4px;
 }
 
-.conf-row-labels {
+.cm-th-blank { background: transparent; }
+
+.cm-th {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-align: center;
+  padding: 4px 6px;
+  background: transparent;
+  line-height: 1.3;
+}
+
+.cm-row-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-dim);
+  padding: 4px 8px 4px 0;
+  vertical-align: middle;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+
+.cm-cell {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 800;
+  padding: 14px 10px;
+  border-radius: 6px;
+  vertical-align: middle;
+}
+
+.cm-cell--good {
+  background: #bbf7d0;
+  color: #065f46;
+}
+.cm-cell--bad {
+  background: #fecdd3;
+  color: #9f1239;
+}
+
+/* ── Stats row ─────────────────────────────────── */
+.cm-stats {
+  display: flex;
+  gap: 20px;
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
+}
+
+.cm-stat {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 1px;
 }
 
-.conf-row-labels span {
+.cm-stat-val {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.cm-stat-lbl {
   font-size: 11px;
-  color: #ffffff;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  height: 60px;
-  display: flex;
-  align-items: center;
+  color: var(--text-muted);
 }
 
-.conf-cells {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4px;
-}
-
-.conf-cell {
+/* ── Takeaway ──────────────────────────────────── */
+.cm-takeaway {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.55;
+  background: rgba(148, 163, 184, 0.05);
   border-radius: var(--radius-sm);
-  padding: 8px 6px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+  padding: 8px 10px;
 }
-
-.conf-cell--good { background: rgba(52, 211, 153, 0.08); border: 1px solid rgba(52, 211, 153, 0.2); }
-.conf-cell--bad  { background: rgba(248, 113, 113, 0.08); border: 1px solid rgba(248, 113, 113, 0.2); }
-
-.conf-cell-value { font-size: 22px; font-weight: 700; color: var(--text); }
-.conf-cell-pct   { font-size: 11px; color: #ffffff; }
-.conf-cell-label { font-size: 11px; color: #ffffff; margin-top: 2px; }
 
 /* ── Table ─────────────────────────────────────── */
 .metrics-table-wrap {

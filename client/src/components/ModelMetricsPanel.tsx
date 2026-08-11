@@ -23,6 +23,13 @@ export function ModelMetricsPanel({ metrics }: Props) {
       <MetricBarChart metrics={metrics} />
 
       {/* Confusion matrices */}
+      <div className="cm-key-banner">
+        <strong>How to read each confusion matrix:</strong> rows are the participant's actual
+        cognitive-status class; columns are the model's predicted class.{' '}
+        <span className="cm-key-good">Green cells</span> are correct classifications;{' '}
+        <span className="cm-key-bad">coral cells</span> are errors. This shared key applies
+        to all three models. <em>Source: GE-79 Streamlit ML Visualizations App.</em>
+      </div>
       <div className="confusion-row">
         {metrics.map(m => (
           <ConfusionMatrix key={m.model} metric={m} />
@@ -192,43 +199,89 @@ function MetricBarChart({ metrics }: { metrics: ModelMetric[] }) {
 }
 
 /* ── Confusion matrix ────────────────────────────────────────────────── */
-function ConfusionMatrix({ metric }: { metric: ModelMetric }) {
-  const [[tp_n, fp_i], [fn_n, tp_i]] = metric.confusion_matrix
-  const total = tp_n + fp_i + fn_n + tp_i
+const MODEL_META: Record<string, { rank: string; subtitle: string; takeaway: string }> = {
+  'Logistic Regression': {
+    rank: 'MODEL 1 · LOGISTIC REGRESSION',
+    subtitle: 'Interpretable baseline',
+    takeaway: 'The baseline found 10 of 20 impaired participants, but created 24 false alarms.',
+  },
+  'Decision Tree': {
+    rank: 'MODEL 2 · DECISION TREE',
+    subtitle: 'Interpretable branching classifier',
+    takeaway: 'It identified the largest share of impaired participants: 11 of 20.',
+  },
+  'Random Forest': {
+    rank: 'MODEL 3 · RANDOM FOREST',
+    subtitle: 'Ensemble classifier',
+    takeaway: 'It achieved the highest overall accuracy, but missed 15 of 20 impaired participants.',
+  },
+}
 
-  const cells = [
-    { label: 'True No Imp.', value: tp_n, type: 'good', row: 'No Imp.', col: 'No Imp.' },
-    { label: 'False Alarm', value: fp_i, type: 'bad', row: 'No Imp.', col: 'Impaired' },
-    { label: 'Missed Impaired', value: fn_n, type: 'bad', row: 'Impaired', col: 'No Imp.' },
-    { label: 'True Impaired', value: tp_i, type: 'good', row: 'Impaired', col: 'Impaired' },
-  ]
+function ConfusionMatrix({ metric }: { metric: ModelMetric }) {
+  const [[tn, fp], [fn, tp]] = metric.confusion_matrix
+  const meta = MODEL_META[metric.model] ?? {
+    rank: metric.model.toUpperCase(),
+    subtitle: metric.model,
+    takeaway: '',
+  }
+  const accuracy    = Math.round(metric.accuracy * 100)
+  const recall      = Math.round(metric.recall_impaired * 100)
 
   return (
     <div className="confusion-card" style={{ '--model-color': metric.color } as React.CSSProperties}>
-      <div className="confusion-title" style={{ color: metric.color }}>{metric.model}</div>
-      <div className="confusion-grid">
-        <div className="conf-axis-label col-label">Predicted →</div>
-        <div className="conf-col-labels">
-          <span>No Imp.</span>
-          <span>Impaired</span>
+      {/* Header */}
+      <div className="cm-rank" style={{ color: metric.color }}>{meta.rank}</div>
+      <div className="cm-subtitle">{meta.subtitle}</div>
+
+      {/* Legend */}
+      <div className="cm-legend">
+        <span className="cm-legend-dot cm-legend-dot--good" />correct prediction
+        <span className="cm-legend-dot cm-legend-dot--bad" style={{ marginLeft: 12 }} />model error
+      </div>
+
+      {/* Matrix table */}
+      <div className="cm-table-wrap">
+        <table className="cm-table">
+          <thead>
+            <tr>
+              <th className="cm-th-blank" />
+              <th className="cm-th">Predicted:<br />No impairment</th>
+              <th className="cm-th">Predicted:<br />Impaired</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="cm-row-label">Actual:<br />No impairment</td>
+              <td className="cm-cell cm-cell--good">{tn}</td>
+              <td className="cm-cell cm-cell--bad">{fp}</td>
+            </tr>
+            <tr>
+              <td className="cm-row-label">Actual:<br />Impaired</td>
+              <td className="cm-cell cm-cell--bad">{fn}</td>
+              <td className="cm-cell cm-cell--good">{tp}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {/* Stats */}
+      <div className="cm-stats">
+        <div className="cm-stat">
+          <span className="cm-stat-val">{accuracy}%</span>
+          <span className="cm-stat-lbl">accuracy</span>
         </div>
-        <div className="conf-row-label-col">
-          <div className="conf-row-axis">Actual ↓</div>
-          <div className="conf-row-labels">
-            <span>No Imp.</span>
-            <span>Impaired</span>
-          </div>
-        </div>
-        <div className="conf-cells">
-          {cells.map(c => (
-            <div key={c.label} className={`conf-cell conf-cell--${c.type}`}>
-              <div className="conf-cell-value">{c.value}</div>
-              <div className="conf-cell-pct">{Math.round((c.value / total) * 100)}%</div>
-              <div className="conf-cell-label">{c.label}</div>
-            </div>
-          ))}
+        <div className="cm-stat">
+          <span className="cm-stat-val">{recall}%</span>
+          <span className="cm-stat-lbl">impaired recall</span>
         </div>
       </div>
+
+      {/* Takeaway */}
+      {meta.takeaway && (
+        <div className="cm-takeaway">
+          <strong>Takeaway:</strong> {meta.takeaway}
+        </div>
+      )}
     </div>
   )
 }
