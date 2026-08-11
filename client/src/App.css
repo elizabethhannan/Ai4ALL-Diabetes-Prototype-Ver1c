@@ -381,8 +381,8 @@
   justify-content: center;
   gap: 8px;
   padding: 9px 12px;
-  background: #065f46;
-  border: 1px solid #34d399;
+  background: #6d28d9;
+  border: 1px solid #a78bfa;
   color: #ffffff;
   border-radius: var(--radius);
   font-weight: 700;
@@ -391,12 +391,12 @@
   transition: background 0.15s, transform 0.1s;
 }
 .btn-preset-noimpair:hover:not(:disabled) {
-  background: #047857;
+  background: #7c3aed;
   transform: translateY(-1px);
 }
 .btn-preset-noimpair:disabled { opacity: 0.6; cursor: not-allowed; }
 .btn-preset-icon { font-size: 12px; }
-.btn-preset-arrow { font-size: 14px; margin-left: 2px; color: #34d399; }
+.btn-preset-arrow { font-size: 14px; margin-left: 2px; color: #a78bfa; }
 
 .btn-predict {
   flex: 2;
