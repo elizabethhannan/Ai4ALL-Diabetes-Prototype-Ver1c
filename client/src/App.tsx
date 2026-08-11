@@ -196,11 +196,6 @@ export default function App() {
                 </p>
               </div>
               <button className="btn-reset btn-reset--above" onClick={handleReset}>↺ Reset Biomarkers</button>
-              <button className="btn-preset-noimpair" onClick={handleNoImpairmentPreset} disabled={loading}>
-                <span className="btn-preset-icon">🟢</span>
-                No Impairment Preset
-                <span className="btn-preset-arrow">▾</span>
-              </button>
               <BiomarkerForm
                 features={featuresData.features}
                 stats={featuresData.stats}
@@ -226,6 +221,11 @@ export default function App() {
                   {loading ? 'Predicting…' : <><span>Run Prediction</span> <span className="btn-arrow">→</span></>}
                 </button>
               </div>
+              <button className="btn-preset-noimpair" onClick={handleNoImpairmentPreset} disabled={loading}>
+                <span className="btn-preset-icon">🟢</span>
+                No Impairment Preset
+                <span className="btn-preset-arrow">▾</span>
+              </button>
             </section>
 
             {/* Right: brain (desktop only) + radar + prediction */}
