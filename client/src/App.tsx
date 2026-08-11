@@ -63,6 +63,40 @@ export default function App() {
     setPrediction(null)
   }
 
+  // Preset: set the three protective cerebrovascular markers to their max,
+  // everything else to cohort median, then auto-run prediction.
+  const NO_IMPAIRMENT_KEYS = [
+    'global_vasoreactivity',
+    'perfusion_whole_brain_baseline_whole',
+    'perfusion_lepto_pca_baseline_whole',
+  ]
+  const handleNoImpairmentPreset = async () => {
+    if (!featuresData) return
+    const preset: Record<string, number | null> = {}
+    featuresData.features.forEach(f => {
+      preset[f.key] = NO_IMPAIRMENT_KEYS.includes(f.key)
+        ? f.typical_max
+        : (featuresData.stats[f.key]?.median ?? null)
+    })
+    setValues(preset)
+    setPrediction(null)
+    // Auto-predict with the new values
+    setLoading(true)
+    try {
+      const res = await fetch('/api/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ features: preset }),
+      })
+      const data: PredictResponse = await res.json()
+      setPrediction(data)
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="app">
       {/* Header */}
@@ -162,6 +196,11 @@ export default function App() {
                 </p>
               </div>
               <button className="btn-reset btn-reset--above" onClick={handleReset}>↺ Reset Biomarkers</button>
+              <button className="btn-preset-noimpair" onClick={handleNoImpairmentPreset} disabled={loading}>
+                <span className="btn-preset-icon">🟢</span>
+                No Impairment Preset
+                <span className="btn-preset-arrow">▾</span>
+              </button>
               <BiomarkerForm
                 features={featuresData.features}
                 stats={featuresData.stats}
