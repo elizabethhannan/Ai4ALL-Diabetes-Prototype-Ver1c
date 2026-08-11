@@ -22,8 +22,12 @@
 .brain-anim-canvas-container {
   display: block;
   position: relative;
-  width: 100%;
+  width: 67%;
+  margin: 0 auto;
   cursor: crosshair;
+  /* Fade out bottom edge to remove the particle dotted-line artifact */
+  -webkit-mask-image: linear-gradient(to bottom, black 78%, transparent 96%);
+  mask-image: linear-gradient(to bottom, black 78%, transparent 96%);
 }
 
 .brain-anim-canvas-container canvas {
