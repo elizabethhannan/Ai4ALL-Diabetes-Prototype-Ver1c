@@ -44,14 +44,5 @@
   height: 100%;
   object-fit: contain;
   pointer-events: none;
-  /* White outline: spread drop-shadows around every opaque pixel edge */
-  filter:
-    drop-shadow( 1px  0px 0px white)
-    drop-shadow(-1px  0px 0px white)
-    drop-shadow( 0px  1px 0px white)
-    drop-shadow( 0px -1px 0px white)
-    drop-shadow( 1px  1px 0px white)
-    drop-shadow(-1px  1px 0px white)
-    drop-shadow( 1px -1px 0px white)
-    drop-shadow(-1px -1px 0px white);
+  mix-blend-mode: screen;
 }
