@@ -110,8 +110,7 @@ export default function App() {
                   <img src="/elizabeth-qr.png" alt="Elizabeth Hannan LinkedIn QR" width="36" height="36" style={{ display: 'block', borderRadius: 3 }} />
                 </div>
                 <div className="author-info">
-                  <span className="author-name">Elizabeth H.</span>
-                  <span className="author-link">Author · LinkedIn</span>
+                  <span className="author-name">Elizabeth Hannan-Coauthor</span>
                   <a className="author-www" href="https://tinyurl.com/LinkedinEHannan" target="_blank" rel="noreferrer">tinyurl.com/LinkedinEHannan</a>
                 </div>
               </div>
@@ -120,8 +119,7 @@ export default function App() {
                   <img src="/agastyya-qr.png" alt="Agastyya Kola LinkedIn QR" width="36" height="36" style={{ display: 'block', borderRadius: 3 }} />
                 </div>
                 <div className="author-info">
-                  <span className="author-name">Agastyya K.</span>
-                  <span className="author-link">Author · LinkedIn</span>
+                  <span className="author-name">Agastyya Kala-Coauthor</span>
                   <a className="author-www" href="https://tinyurl.com/Linkedin-Agastyya-Kala" target="_blank" rel="noreferrer">tinyurl.com/Linkedin-Agastyya-Kala</a>
                 </div>
               </div>
