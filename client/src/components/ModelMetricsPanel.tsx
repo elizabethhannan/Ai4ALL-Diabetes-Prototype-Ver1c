@@ -156,7 +156,7 @@ function MetricBarChart({ metrics }: { metrics: ModelMetric[] }) {
           .attr('y', y(val) - 4)
           .attr('text-anchor', 'middle')
           .attr('font-size', 9)
-          .attr('fill', '#94a3b8')
+          .attr('fill', '#374151')
           .text(val.toFixed(2))
       })
     })
@@ -166,11 +166,11 @@ function MetricBarChart({ metrics }: { metrics: ModelMetric[] }) {
       .attr('transform', `translate(0,${height})`)
       .call(d3.axisBottom(x0))
       .call(gg => {
-        gg.select('.domain').attr('stroke', '#1e2d45')
+        gg.select('.domain').attr('stroke', '#d1d5db')
         gg.selectAll('text')
-          .attr('fill', '#94a3b8')
+          .attr('fill', '#374151')
           .attr('font-size', 12)
-        gg.selectAll('line').attr('stroke', '#1e2d45')
+        gg.selectAll('line').attr('stroke', '#d1d5db')
       })
 
     // Y axis
@@ -178,7 +178,7 @@ function MetricBarChart({ metrics }: { metrics: ModelMetric[] }) {
       .call(d3.axisLeft(y).ticks(5))
       .call(gg => {
         gg.select('.domain').remove()
-        gg.selectAll('text').attr('fill', '#64748b').attr('font-size', 10)
+        gg.selectAll('text').attr('fill', '#374151').attr('font-size', 10)
         gg.selectAll('line').remove()
       })
 
@@ -187,7 +187,7 @@ function MetricBarChart({ metrics }: { metrics: ModelMetric[] }) {
     metrics.forEach((m, i) => {
       const lx = i * 170
       legend.append('rect').attr('x', lx).attr('y', 0).attr('width', 10).attr('height', 10).attr('fill', m.color).attr('rx', 2)
-      legend.append('text').attr('x', lx + 14).attr('y', 9).attr('fill', '#94a3b8').attr('font-size', 11).text(m.model)
+      legend.append('text').attr('x', lx + 14).attr('y', 9).attr('fill', '#374151').attr('font-size', 11).text(m.model)
     })
   }, [metrics])
 
