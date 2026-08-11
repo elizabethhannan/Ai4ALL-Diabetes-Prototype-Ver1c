@@ -93,7 +93,8 @@ export function BrainAnimation() {
     canvas.style.display = 'block'
     canvas.style.width   = '100%'
     canvas.style.height  = 'auto'
-    container.appendChild(canvas)
+    // Insert canvas before the img overlay so the head renders on top
+    container.insertBefore(canvas, container.firstChild)
 
     const ctx = canvas.getContext('2d')!
     const nodes = generateBrainParticles(CFG.particleCount)
@@ -158,13 +159,13 @@ export function BrainAnimation() {
         ctx.moveTo((d.x ?? 0) + d.r, d.y ?? 0)
         ctx.arc(d.x ?? 0, d.y ?? 0, d.r, 0, Math.PI * 2)
 
-        ctx.fillStyle = d.r > 6 ? '#2d9a96'
-                      : d.r > 3.5 ? '#1f8a8a'
-                      :              '#166b6b'
-        ctx.globalAlpha = 0.85
+        ctx.fillStyle = d.r > 6 ? '#d8d8d8'
+                      : d.r > 3.5 ? '#b0b0b0'
+                      :              '#888888'
+        ctx.globalAlpha = 0.75
         ctx.fill()
 
-        ctx.strokeStyle = 'rgba(0,0,0,0.1)'
+        ctx.strokeStyle = 'rgba(255,255,255,0.08)'
         ctx.lineWidth = 0.5
         ctx.stroke()
       }
