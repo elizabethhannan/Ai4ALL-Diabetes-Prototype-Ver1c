@@ -2,7 +2,7 @@
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 16px 16px 28px;
   overflow: hidden;
 }
 
@@ -15,7 +15,7 @@
 
 .brain-anim-title {
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 400;
   color: #ffffff;
 }
 
@@ -23,11 +23,11 @@
   display: block;
   position: relative;
   width: 67%;
-  margin: 0 auto;
+  margin: 8px auto 0;
   cursor: crosshair;
   /* Fade out bottom edge to remove the particle dotted-line artifact */
-  -webkit-mask-image: linear-gradient(to bottom, black 78%, transparent 96%);
-  mask-image: linear-gradient(to bottom, black 78%, transparent 96%);
+  -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 99%);
+  mask-image: linear-gradient(to bottom, black 90%, transparent 99%);
 }
 
 .brain-anim-canvas-container canvas {

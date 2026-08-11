@@ -157,10 +157,10 @@ export default function App() {
               <div className="instructions-card">
                 <div className="instructions-header">
                   <span className="instructions-icon">⚡</span>
-                  <span className="instructions-title">Instructions</span>
+                  <span className="instructions-title">Prototype App Instructions</span>
                 </div>
                 <p className="instructions-text">
-                  Adjust the biomarkers below, then click <strong>Run Prediction</strong> to see outputs from all three classifiers.
+                  Choose 3 or more biomarkers. Adjust the biomarkers below, then click <strong>Run Prediction</strong> to see outputs from all three classifiers. Choose 3 or more biomarkers.
                 </p>
               </div>
               <button className="btn-reset btn-reset--above" onClick={handleReset}>↺ Reset Biomarkers</button>

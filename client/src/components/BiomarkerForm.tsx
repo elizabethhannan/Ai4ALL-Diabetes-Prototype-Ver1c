@@ -30,11 +30,16 @@ interface Props {
 
 export function BiomarkerForm({ features, stats, values, onChange }: Props) {
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({})
+  const [filterDomain, setFilterDomain] = useState<string>('All')
 
   const byDomain = DOMAIN_ORDER.map(domain => ({
     domain,
     features: features.filter(f => f.domain === domain),
   }))
+
+  const visibleDomains = filterDomain === 'All'
+    ? byDomain
+    : byDomain.filter(d => d.domain === filterDomain)
 
   const toggle = (domain: string) =>
     setCollapsed(p => ({ ...p, [domain]: !p[domain] }))
@@ -50,11 +55,22 @@ export function BiomarkerForm({ features, stats, values, onChange }: Props) {
   return (
     <div className="bio-form">
       <div className="bio-form-header">
-        <h2 className="bio-form-title">Biomarker Profile</h2>
+        <h2 className="bio-form-title">Biomarker Feature Profile</h2>
         <span className="bio-form-hint">Adjust sliders or type values</span>
       </div>
 
-      {byDomain.map(({ domain, features: domainFeatures }) => {
+      <div className="bio-filter-bar">
+        <select
+          className="bio-filter-select"
+          value={filterDomain}
+          onChange={e => setFilterDomain(e.target.value)}
+        >
+          <option value="All">All Categories</option>
+          {DOMAIN_ORDER.map(d => <option key={d} value={d}>{d}</option>)}
+        </select>
+      </div>
+
+      {visibleDomains.map(({ domain, features: domainFeatures }) => {
         const isCollapsed = collapsed[domain]
         const color = DOMAIN_COLORS[domain] ?? '#64748b'
         return (

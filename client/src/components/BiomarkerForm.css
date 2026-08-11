@@ -21,8 +21,35 @@
 
 .bio-form-hint {
   font-size: 13px;
-  color: var(--text-dim);
+  color: #ffffff;
 }
+
+/* ── Category filter ───────────────────────────── */
+.bio-filter-bar {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.bio-filter-select {
+  width: 100%;
+  background: var(--surface2);
+  color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 36px 7px 12px;
+  font-size: 16px;
+  font-weight: 500;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%23ffffff' d='M7 10L1 4h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.bio-filter-select:focus { border-color: var(--accent); }
+.bio-filter-select option { background: #1a2235; color: #ffffff; }
 
 /* ── Domain group ──────────────────────────────── */
 .domain-group {
@@ -64,9 +91,9 @@
 }
 
 .domain-chevron {
-  font-size: 13px;
-  color: var(--text-dim);
-  width: 14px;
+  font-size: 16px;
+  color: #ffffff;
+  width: 18px;
   text-align: center;
 }
 
