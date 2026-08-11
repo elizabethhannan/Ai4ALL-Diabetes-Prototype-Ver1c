@@ -185,10 +185,10 @@
   font-weight: 600;
 }
 
-/* URL shown only on mobile expanded header */
+/* URL shown in header */
 .author-www {
-  display: none;
-  font-size: 11px;
+  display: block;
+  font-size: 10px;
   color: #34d399;
   text-decoration: none;
   word-break: break-all;
