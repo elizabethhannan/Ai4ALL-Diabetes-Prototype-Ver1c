@@ -284,28 +284,9 @@
   .desktop-run-action { display: none; }
   .desktop-brain-slot { display: none; }
 
-  /* Show mobile row: Run Prediction (2/3) + Brain (1/3) */
-  .mobile-run-brain {
-    display: flex;
-    gap: 10px;
-    align-items: stretch;
-  }
-  .mobile-run-brain .form-actions {
-    flex: 2;
-    display: flex;
-  }
-  .mobile-run-brain .btn-predict {
-    width: 100%;
-    font-size: 14px;
-    padding: 10px 12px;
-  }
-  .mobile-brain-slot {
-    display: block;
-    flex: 1;
-    min-width: 0;
-    overflow: hidden;
-    border-radius: var(--radius);
-  }
+  /* Mobile: hide the Run Prediction + Brain row entirely */
+  .mobile-run-brain { display: none; }
+  .mobile-brain-slot { display: none; }
 
   /* Header: show toggle, hide expandable by default */
   .header-toggle { display: flex; }
