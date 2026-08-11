@@ -10,6 +10,14 @@ interface Props {
   values: Record<string, number | null>
 }
 
+const DOMAIN_COLORS: Record<string, string> = {
+  Glycemic:           '#fbbf24',
+  Cardiovascular:     '#f87171',
+  Inflammation:       '#c084fc',
+  Cerebrovascular:    '#38bdf8',
+  'Body Composition': '#34d399',
+}
+
 export function RadarChart({ features, stats, importance, values }: Props) {
   const ref = useRef<SVGSVGElement>(null)
 
@@ -103,14 +111,14 @@ export function RadarChart({ features, stats, importance, values }: Props) {
       .attr('stroke', '#38bdf8')
       .attr('stroke-width', 2)
 
-    // Dots on user polygon
+    // Dots on user polygon — coloured by domain
     radarFeatures.forEach((f, i) => {
       const v = userVals[i]
       const pt = toXY(R * v, i)
-      const atRisk = values[f.key] !== null && (values[f.key] as number) > f.reference_high
+      const domainColor = DOMAIN_COLORS[f.domain] ?? '#38bdf8'
       svg.append('circle')
-        .attr('cx', pt.x).attr('cy', pt.y).attr('r', 4)
-        .attr('fill', atRisk ? '#f87171' : '#38bdf8')
+        .attr('cx', pt.x).attr('cy', pt.y).attr('r', 6)
+        .attr('fill', domainColor)
         .attr('stroke', '#0a0f1e')
         .attr('stroke-width', 1.5)
     })
