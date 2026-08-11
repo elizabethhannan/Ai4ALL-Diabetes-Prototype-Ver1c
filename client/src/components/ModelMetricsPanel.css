@@ -2,7 +2,63 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  background: #ffffff;
+  border-radius: var(--radius);
+  padding: 24px;
+  color: #1e293b;
 }
+
+/* ── Scope all dark-theme overrides to white panel ── */
+.metrics-layout .metrics-header h2 { color: #0f172a; }
+.metrics-layout .metrics-note      { color: #475569; }
+
+.metrics-layout .chart-wrap {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.metrics-layout .metrics-table-wrap {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+.metrics-layout .metrics-table th {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-bottom-color: #e2e8f0;
+}
+.metrics-layout .metrics-table td {
+  color: #1e293b;
+  border-bottom-color: #f1f5f9;
+}
+.metrics-layout .metrics-table tr:hover td { background: #f8fafc; }
+.metrics-layout .model-dot { }
+
+.metrics-layout .metrics-footnote {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #475569;
+}
+
+.metrics-layout .confusion-card {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+.metrics-layout .cm-rank    { /* colour comes from inline style — keep */ }
+.metrics-layout .cm-subtitle { color: #0f172a; }
+.metrics-layout .cm-legend  { color: #475569; }
+.metrics-layout .cm-th      { color: #374151; }
+.metrics-layout .cm-row-label { color: #374151; }
+.metrics-layout .cm-stat-val  { color: #0f172a; }
+.metrics-layout .cm-stat-lbl  { color: #6b7280; }
+.metrics-layout .cm-takeaway  { background: #f1f5f9; color: #374151; }
+
+.metrics-layout .cm-key-banner {
+  background: #065f46;
+  color: #ffffff;
+  border-left-color: #34d399;
+}
+.metrics-layout .cm-key-good { color: #6ee7b7; }
+.metrics-layout .cm-key-bad  { color: #fda4af; }
 
 .metrics-loading {
   text-align: center;
